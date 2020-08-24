@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/client/client.iml" filepath="$PROJECT_DIR$/client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rpcProject.iml" filepath="$PROJECT_DIR$/rpcProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rpcapi/rpcapi.iml" filepath="$PROJECT_DIR$/rpcapi/rpcapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rpccommon/rpccommon.iml" filepath="$PROJECT_DIR$/rpccommon/rpccommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rpccore/rpccore.iml" filepath="$PROJECT_DIR$/rpccore/rpccore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rpcparent/rpcparent.iml" filepath="$PROJECT_DIR$/rpcparent/rpcparent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
+    </modules>
+  </component>
+</project>
