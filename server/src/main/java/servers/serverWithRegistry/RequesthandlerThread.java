@@ -30,6 +30,7 @@ public class RequesthandlerThread implements Runnable {
             String interfaceName = rpcRequest.getInterfactName();
             //从注册中心获取服务
             Object service = serviceRegistry.getService(interfaceName);
+            //调用handler方法，反射调用目标方法
             Object result = requestHandler.handler(rpcRequest, service);
             objectOutputStream.writeObject(RpcResponse.success(result));
             objectOutputStream.flush();

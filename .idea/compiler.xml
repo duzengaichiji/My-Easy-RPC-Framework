@@ -18,7 +18,7 @@
       <module name="client" target="8" />
       <module name="rpcapi" target="1.5" />
       <module name="rpccommon" target="1.5" />
-      <module name="rpccore" target="7" />
+      <module name="rpccore" target="8" />
       <module name="rpcparent" target="1.5" />
       <module name="server" target="7" />
     </bytecodeTargetLevel>

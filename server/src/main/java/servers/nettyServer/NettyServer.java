@@ -1,5 +1,7 @@
 package servers.nettyServer;
 
+import codec.CommonDecoder;
+import codec.CommonEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -8,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import rpcInterfaces.RpcServer;
+import serializer.JsonSerializer;
 
 public class NettyServer implements RpcServer {
 
@@ -27,9 +30,9 @@ public class NettyServer implements RpcServer {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             ChannelPipeline pipeline = socketChannel.pipeline();
-                            //pipeline.addLast(new )
-                            //pipeline.addLast(new NettyServerHandler());
-
+                            pipeline.addLast(new CommonEncoder(new JsonSerializer()));
+                            pipeline.addLast(new CommonDecoder());
+                            pipeline.addLast(new NettyServerHandler());
                         }
                     });
             //绑定监听端口

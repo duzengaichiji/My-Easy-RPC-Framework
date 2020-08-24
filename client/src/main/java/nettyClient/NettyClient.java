@@ -1,5 +1,7 @@
 package nettyClient;
 
+import codec.CommonDecoder;
+import codec.CommonEncoder;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import io.netty.bootstrap.Bootstrap;
@@ -9,6 +11,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 import rpcInterfaces.RpcClient;
+import serializer.JsonSerializer;
 
 public class NettyClient implements RpcClient {
 
@@ -30,7 +33,10 @@ public class NettyClient implements RpcClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
-
+                        ChannelPipeline pipeline = socketChannel.pipeline();
+                        pipeline.addLast(new CommonDecoder())
+                                .addLast(new CommonEncoder(new JsonSerializer()))
+                                .addLast(new NettyClientHandler());
                     }
                 });
     }
