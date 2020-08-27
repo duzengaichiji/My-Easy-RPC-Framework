@@ -2,19 +2,21 @@ package EasyClient;
 
 import entity.RpcRequest;
 import entity.RpcResponse;
+import io.netty.channel.ChannelFuture;
+import nettyClient.NettyClient;
+import rpcInterfaces.RpcClient;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.concurrent.CompletableFuture;
 
 //理论上客户端没有服务接口的实现类，需要通过动态代理进行目标方法的调用
 public class RpcClientProxy implements InvocationHandler {
-    private String host;
-    private int port;
+    private RpcClient client;
 
-    public RpcClientProxy(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public RpcClientProxy(RpcClient client) {
+        this.client = client;
     }
 
     public <T> T getProxy(Class<T> clazz){
@@ -29,31 +31,20 @@ public class RpcClientProxy implements InvocationHandler {
                 args,
                 method.getParameterTypes()
         );
-        EasyRpcClient rpcClient = new EasyRpcClient();
-        return ((RpcResponse) rpcClient.sendRequest(rpcRequest,host,port)).getData();
-    }
-
-    @Override
-    public String toString() {
-        return "RpcClientProxy{" +
-                "host='" + host + '\'' +
-                ", port=" + port +
-                '}';
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
+        RpcResponse rpcResponse = null;
+        if(client instanceof NettyClient){
+            try {
+                CompletableFuture<RpcResponse> completableFuture = (CompletableFuture<RpcResponse>) client.sendRequest(rpcRequest);
+                rpcResponse = completableFuture.get();
+                System.out.println(rpcResponse);
+            }catch (Exception e) {
+                System.out.println("方法调用失败:"+e);
+                return null;
+            }
+        }
+        if(client instanceof EasyRpcClient){
+            rpcResponse = (RpcResponse)client.sendRequest(rpcRequest);
+        }
+        return rpcResponse.getData();
     }
 }

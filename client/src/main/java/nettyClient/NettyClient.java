@@ -19,6 +19,30 @@ public class NettyClient implements RpcClient {
     private int port;
     private static Bootstrap bootstrap;
 
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public Bootstrap getBootstrap() {
+        return bootstrap;
+    }
+
+    public void setBootstrap(Bootstrap bootstrap) {
+        this.bootstrap = bootstrap;
+    }
+
     public NettyClient(String host, int port) {
         this.host = host;
         this.port = port;
@@ -61,7 +85,7 @@ public class NettyClient implements RpcClient {
                 return rpcResponse.getData();
             }
         }catch (InterruptedException e){
-            System.out.println(e);
+            //System.out.println(e);
         }
         return null;
     }

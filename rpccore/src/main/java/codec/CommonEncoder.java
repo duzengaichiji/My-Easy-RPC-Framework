@@ -9,11 +9,11 @@ import serializer.CommonSerializer;
 
 public class CommonEncoder extends MessageToByteEncoder {
     private static final int MAGIC_NUMBER = 0xCAFEBABE;
-    //private
 
     private CommonSerializer serializer;
 
     public CommonEncoder(CommonSerializer serializer){
+        System.out.println(serializer);
         this.serializer = serializer;
     }
 

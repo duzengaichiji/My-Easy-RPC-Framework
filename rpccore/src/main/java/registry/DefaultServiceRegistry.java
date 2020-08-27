@@ -10,6 +10,22 @@ public class DefaultServiceRegistry implements  ServiceRegistry{
     private Map<String,Object> serviceMap = new ConcurrentHashMap<>();
     private Set<String> registeredService = new HashSet<>();
 
+    public Map<String, Object> getServiceMap() {
+        return serviceMap;
+    }
+
+    public void setServiceMap(Map<String, Object> serviceMap) {
+        this.serviceMap = serviceMap;
+    }
+
+    public Set<String> getRegisteredService() {
+        return registeredService;
+    }
+
+    public void setRegisteredService(Set<String> registeredService) {
+        this.registeredService = registeredService;
+    }
+
     @Override
     public synchronized <T> void register(T service) {
         String serviceName = service.getClass().getCanonicalName();

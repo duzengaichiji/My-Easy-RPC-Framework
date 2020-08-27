@@ -5,19 +5,14 @@ import api.HelloService;
 
 import java.util.concurrent.Callable;
 
-public class ClientThread implements Callable {
-
-    private HelloObject helloObject;
-    private HelloService helloService;
-
-    public ClientThread(HelloObject helloObject, HelloService helloService) {
-        this.helloObject = helloObject;
-        this.helloService = helloService;
-    }
+public class ClientThread implements Runnable {
 
     @Override
-    public Object call() throws Exception {
-        String res = helloService.hello(helloObject);
-        return res;
+    public void run() {
+//        RpcClientProxy proxy = new RpcClientProxy("127.0.0.1",9000);
+//        HelloService helloService = proxy.getProxy(HelloService.class);
+//        HelloObject helloObject = new HelloObject(1,"thread"+Thread.currentThread().getName());
+//        String res = helloService.hello(helloObject);
+//        System.out.println(res);
     }
 }

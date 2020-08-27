@@ -20,7 +20,7 @@
       <module name="rpccommon" target="1.5" />
       <module name="rpccore" target="8" />
       <module name="rpcparent" target="1.5" />
-      <module name="server" target="7" />
+      <module name="server" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

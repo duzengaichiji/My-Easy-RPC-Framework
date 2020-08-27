@@ -11,6 +11,7 @@ public class ServerWithRegistryTest {
         HelloService helloService = new HelloServiceImpl();
         ServiceRegistry serviceRegistry = new DefaultServiceRegistry();
         serviceRegistry.register(helloService);
+        //System.out.println(serviceRegistry.getServiceMap().keySet());
         RpcServerWithRegistry rpcServerWithRegistry = new RpcServerWithRegistry(serviceRegistry);
         rpcServerWithRegistry.start(9000);
     }
