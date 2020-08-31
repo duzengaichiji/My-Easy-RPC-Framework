@@ -11,28 +11,43 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import registry.DefaultServiceRegistry;
+import registry.NacosServiceRegistryCenter;
 import registry.ServiceRegistry;
+import registry.ServiceRegistryCenter;
 import rpcInterfaces.RpcServer;
+import serializer.CommonSerializer;
 import serializer.JsonSerializer;
+import serializer.KryoSerializer;
+
+import java.net.InetSocketAddress;
 
 public class NettyServer implements RpcServer {
 
-    private ServiceRegistry serviceRegistry;
+    private String host;//远程注册中心的地址
+    private int port;//提供服务的端口
+    private final CommonSerializer serializer;//序列化器
+    private ServiceRegistry serviceRegistry;//本地服务映射表
+    private ServiceRegistryCenter serviceRegistryCenter;//远程服务注册中心
 
-    public NettyServer(ServiceRegistry serviceRegistry) {
-        this.serviceRegistry = serviceRegistry;
+    public NettyServer(String host,int port,Integer serializer){
+        this.host = host;
+        this.port = port;
+        this.serviceRegistryCenter = new NacosServiceRegistryCenter();
+        this.serviceRegistry = new DefaultServiceRegistry();
+        this.serializer = CommonSerializer.getByCode(serializer);
     }
 
-    public ServiceRegistry getServiceRegistry() {
-        return serviceRegistry;
-    }
-
-    public void setServiceRegistry(ServiceRegistry serviceRegistry) {
+    public NettyServer(String host, int port, CommonSerializer serializer, ServiceRegistry serviceRegistry, ServiceRegistryCenter serviceRegistryCenter) {
+        this.host = host;
+        this.port = port;
+        this.serializer = serializer;
         this.serviceRegistry = serviceRegistry;
+        this.serviceRegistryCenter = serviceRegistryCenter;
     }
 
     @Override
-    public void start(int port) {
+    public void start() {
         //Boss线程组专门用来处理连接
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         //worker线程组用来进行数据处理
@@ -44,7 +59,7 @@ public class NettyServer implements RpcServer {
             serverBootstrap.group(bossGroup,workerGroup)
                     //选择服务端通道的实现类
                     .channel(NioServerSocketChannel.class)
-                    //.handler(new LoggingHandler(LogLevel.INFO))
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     .option(ChannelOption.SO_BACKLOG,256)//服务端可连接队列大小
                     .option(ChannelOption.SO_KEEPALIVE,true)//维持长连接
                     .childOption(ChannelOption.TCP_NODELAY,true)
@@ -54,7 +69,7 @@ public class NettyServer implements RpcServer {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             //在pipeline中添加handler类
                             ChannelPipeline pipeline = socketChannel.pipeline();
-                            pipeline.addLast(new CommonEncoder(new JsonSerializer()));
+                            pipeline.addLast(new CommonEncoder(serializer));
                             pipeline.addLast(new CommonDecoder());
                             pipeline.addLast(new NettyServerHandler(serviceRegistry));
                         }
@@ -72,5 +87,14 @@ public class NettyServer implements RpcServer {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
+    }
+
+    @Override
+    public <T> void publishService(Object service, Class<T> serviceClass) {
+        //发布到本地列表
+        serviceRegistry.register(service);
+        //发布到注册中心
+        serviceRegistryCenter.register(serviceClass.getCanonicalName(),
+                new InetSocketAddress(host,port));
     }
 }

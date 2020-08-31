@@ -8,7 +8,7 @@ import rpcInterfaces.RpcClient;
 public class NettyClientTest {
     @Test
     public void nettyClientTest(){
-        RpcClient client = new NettyClient("127.0.0.1",9000);
+        RpcClient client = new NettyClient(0);
         RpcClientProxy rpcClientProxy = new RpcClientProxy(client);
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
         HelloObject object = new HelloObject(12,"netty message");

@@ -10,67 +10,48 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
+import registry.NacosServiceRegistryCenter;
+import registry.ServiceRegistryCenter;
 import rpcInterfaces.RpcClient;
+import serializer.CommonSerializer;
 import serializer.JsonSerializer;
+import serializer.KryoSerializer;
+
+import java.net.InetSocketAddress;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class NettyClient implements RpcClient {
 
-    private String host;
-    private int port;
-    private static Bootstrap bootstrap;
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public Bootstrap getBootstrap() {
-        return bootstrap;
-    }
-
-    public void setBootstrap(Bootstrap bootstrap) {
-        this.bootstrap = bootstrap;
-    }
-
-    public NettyClient(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
+    private final static Bootstrap bootstrap;
+    private static final EventLoopGroup group;
 
     static {
-        EventLoopGroup group = new NioEventLoopGroup();
+        group = new NioEventLoopGroup();
         bootstrap = new Bootstrap();
-        bootstrap.group(group)
-                .channel(NioSocketChannel.class)
-                .option(ChannelOption.SO_KEEPALIVE,true)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        ChannelPipeline pipeline = socketChannel.pipeline();
-                        pipeline.addLast(new CommonDecoder())
-                                .addLast(new CommonEncoder(new JsonSerializer()))
-                                .addLast(new NettyClientHandler());
-                    }
-                });
+        bootstrap.group(group).channel(NioSocketChannel.class);
+    }
+
+    //远程服务注册中心
+    private ServiceRegistryCenter serviceRegistryCenter;
+    //序列化器
+    private CommonSerializer serializer;
+
+    public NettyClient(Integer serializer){
+        this.serviceRegistryCenter = new NacosServiceRegistryCenter();
+        this.serializer = CommonSerializer.getByCode(serializer);
     }
 
     @Override
-    public Object sendRequest(final RpcRequest request) {
-        try{
-            ChannelFuture future = bootstrap.connect(host,port).sync();
-            System.out.println("客户端连接到服务器"+host+":"+port);
-            Channel channel = future.channel();
+    public Object sendRequest(RpcRequest request) {
+        if(serializer==null){
+            System.out.println("未设置序列化器");
+            return null;
+        }
+        Object result = null;
+        try {
+            //通过注册中心获取服务的 套接字，直接通过套接字就能发送请求
+            InetSocketAddress inetSocketAddress = serviceRegistryCenter.lookupService(request.getInterfactName());
+            Channel channel = ChannelProvider.get(inetSocketAddress,serializer);
             if(channel!=null){
                 channel.writeAndFlush(request).addListener(future1->{
                     if(future1.isSuccess()){
@@ -79,6 +60,7 @@ public class NettyClient implements RpcClient {
                         System.out.println("发送消息时有错误"+future1.cause());
                     }
                 });
+                //关闭通道
                 channel.closeFuture().sync();
                 AttributeKey<RpcResponse> key = AttributeKey.valueOf("rpcResponse");
                 RpcResponse rpcResponse = channel.attr(key).get();
@@ -89,4 +71,5 @@ public class NettyClient implements RpcClient {
         }
         return null;
     }
+
 }

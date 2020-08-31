@@ -18,7 +18,6 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
 
     static {
         requestHandler = new RequestHandler();
-        //serviceRegistry = new DefaultServiceRegistry();
     }
 
     public NettyServerHandler(ServiceRegistry serviceRegistry){
@@ -28,13 +27,17 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcRequest rpcRequest) throws Exception {
         try{
+            //if 接收到心跳请求
             System.out.println("服务器收到请求："+rpcRequest);
             String interfaceName = rpcRequest.getInterfactName();
             Object service = serviceRegistry.getService(interfaceName);
             Object result = requestHandler.handler(rpcRequest,service);
-            System.out.println(RpcResponse.success(result));
-            ChannelFuture future = channelHandlerContext.writeAndFlush(RpcResponse.success(result));
-            future.addListener(ChannelFutureListener.CLOSE);
+            if(channelHandlerContext.channel().isActive()&&channelHandlerContext.channel().isWritable()){
+                channelHandlerContext.writeAndFlush(RpcResponse.success(result));
+            }
+            else{
+                System.out.println("通道不可写");
+            }
         }finally {
             //Refrence
         }
@@ -64,5 +67,10 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
         Channel channel = ctx.channel();
         channels.remove(channel);
         System.out.println("[Server] : " + channel.remoteAddress().toString().substring(1) + "离线");
+    }
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        super.userEventTriggered(ctx, evt);
     }
 }
