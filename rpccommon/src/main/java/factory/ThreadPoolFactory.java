@@ -23,7 +23,7 @@ public class ThreadPoolFactory {
     }
 
     private static ExecutorService createDefaultThreadPool(final String namePrefix, Boolean b) {
-        ExecutorService pool = threadPoolsMap.computeIfAbsent(namePrefix,k->createDefaultThreadPool(namePrefix,b));
+        ExecutorService pool = threadPoolsMap.computeIfAbsent(namePrefix,k->createThreadPool(namePrefix,b));
         if(pool.isShutdown()||pool.isTerminated()){
             threadPoolsMap.remove(namePrefix);
             pool = createThreadPool(namePrefix,b);

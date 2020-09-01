@@ -7,4 +7,6 @@ public interface ServiceRegistryCenter {
     void register(String serviceName, InetSocketAddress inetSocketAddress);
     //查找服务
     InetSocketAddress lookupService(String serviceName);
+
+    void clearRegistry();
 }

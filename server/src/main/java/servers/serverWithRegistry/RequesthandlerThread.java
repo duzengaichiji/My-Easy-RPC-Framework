@@ -3,7 +3,7 @@ package servers.serverWithRegistry;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import registry.ServiceRegistry;
-import servers.serverWithRegistry.RequestHandler;
+import servers.handlers.RequestHandler;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,7 +29,7 @@ public class RequesthandlerThread implements Runnable {
             RpcRequest rpcRequest = (RpcRequest) objectInputStream.readObject();
             String interfaceName = rpcRequest.getInterfactName();
             //从注册中心获取服务
-            Object service = serviceRegistry.getService(interfaceName);
+            Object service = serviceRegistry.getService(rpcRequest);
             //调用handler方法，反射调用目标方法
             Object result = requestHandler.handler(rpcRequest, service);
             objectOutputStream.writeObject(RpcResponse.success(result));

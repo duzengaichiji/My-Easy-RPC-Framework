@@ -1,4 +1,4 @@
-package servers.serverWithRegistry;
+package servers.handlers;
 
 import entity.RpcRequest;
 import entity.RpcResponse;
@@ -23,11 +23,13 @@ public class RequestHandler {
     private Object invokeTargetMethod(RpcRequest request,Object service) throws InvocationTargetException, IllegalAccessException {
         Method method;
         try{
+            //通过反射获取目标方法和目标实现对象
             method = service.getClass().getMethod(
                     request.getMethodName(),
                     request.getParamTypes()
             );
         }catch (NoSuchMethodException e){
+            //没有找到对应实现，调用失败
             return RpcResponse.fail(ResponseCode.METHOD_NOT_FOUND);
         }
         return method.invoke(service,request.getParameters());

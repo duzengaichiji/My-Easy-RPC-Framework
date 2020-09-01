@@ -1,5 +1,6 @@
 package servers.nettyServer;
 
+import annotation.Service;
 import codec.CommonDecoder;
 import codec.CommonEncoder;
 import io.netty.bootstrap.ServerBootstrap;
@@ -7,18 +8,13 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import registry.DefaultServiceRegistry;
-import registry.NacosServiceRegistryCenter;
-import registry.ServiceRegistry;
-import registry.ServiceRegistryCenter;
+import registry.*;
 import rpcInterfaces.RpcServer;
 import serializer.CommonSerializer;
-import serializer.JsonSerializer;
-import serializer.KryoSerializer;
+import servers.handlers.NettyServerHandler;
+import util.ShutdownHook;
 
 import java.net.InetSocketAddress;
 
@@ -30,11 +26,11 @@ public class NettyServer implements RpcServer {
     private ServiceRegistry serviceRegistry;//本地服务映射表
     private ServiceRegistryCenter serviceRegistryCenter;//远程服务注册中心
 
-    public NettyServer(String host,int port,Integer serializer){
+    public NettyServer(String host,int port,Integer serializer,Integer registry){
         this.host = host;
         this.port = port;
         this.serviceRegistryCenter = new NacosServiceRegistryCenter();
-        this.serviceRegistry = new DefaultServiceRegistry();
+        this.serviceRegistry = ServiceRegistry.getByCode(registry);
         this.serializer = CommonSerializer.getByCode(serializer);
     }
 
@@ -69,15 +65,17 @@ public class NettyServer implements RpcServer {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             //在pipeline中添加handler类
                             ChannelPipeline pipeline = socketChannel.pipeline();
-                            pipeline.addLast(new CommonEncoder(serializer));
+                            pipeline.addLast(new CommonEncoder(serializer));//传入编码器，解码器
                             pipeline.addLast(new CommonDecoder());
-                            pipeline.addLast(new NettyServerHandler(serviceRegistry));
+                            pipeline.addLast(new NettyServerHandler(serviceRegistry));//传入本地注册中心进请求处理器
                         }
                     });
             System.out.println("...server ready...");
             //绑定监听端口,sync是同步阻塞
             ChannelFuture future = serverBootstrap.bind(port).sync();
             System.out.println("...binding port:"+port+" server start...");
+            //添加服务注销的钩子
+            ShutdownHook.getShutdownHook().addClearAllHook(serviceRegistryCenter);
             //关闭通道
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {

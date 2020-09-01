@@ -1,19 +1,18 @@
-package servers.nettyServer;
+package servers.handlers;
 
 import entity.RpcRequest;
 import entity.RpcResponse;
 import io.netty.channel.*;
-import registry.DefaultServiceRegistry;
 import registry.ServiceRegistry;
-import servers.serverWithRegistry.RequestHandler;
+import servers.handlers.RequestHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
 
-    private static RequestHandler requestHandler;
-    private static ServiceRegistry serviceRegistry;
+    private static RequestHandler requestHandler;//请求处理器
+    private static ServiceRegistry serviceRegistry;//本地服务注册中心，记录服务接口和对应的实现了类
     private static List<Channel> channels = new ArrayList<>();
 
     static {
@@ -29,9 +28,8 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
         try{
             //if 接收到心跳请求
             System.out.println("服务器收到请求："+rpcRequest);
-            String interfaceName = rpcRequest.getInterfactName();
-            Object service = serviceRegistry.getService(interfaceName);
-            Object result = requestHandler.handler(rpcRequest,service);
+            Object service = serviceRegistry.getService(rpcRequest);//通过本地注册中心获得对应实现对象
+            Object result = requestHandler.handler(rpcRequest,service);//处理请求
             if(channelHandlerContext.channel().isActive()&&channelHandlerContext.channel().isWritable()){
                 channelHandlerContext.writeAndFlush(RpcResponse.success(result));
             }
@@ -39,7 +37,6 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
                 System.out.println("通道不可写");
             }
         }finally {
-            //Refrence
         }
     }
 

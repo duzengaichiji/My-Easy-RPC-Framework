@@ -1,8 +1,7 @@
 package servers.serverWithRegistry;
 
 import registry.ServiceRegistry;
-import servers.serverWithRegistry.RequestHandler;
-import servers.serverWithRegistry.RequesthandlerThread;
+import servers.handlers.RequestHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
