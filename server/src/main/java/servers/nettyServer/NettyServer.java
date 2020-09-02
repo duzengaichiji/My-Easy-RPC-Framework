@@ -88,9 +88,9 @@ public class NettyServer implements RpcServer {
     }
 
     @Override
-    public <T> void publishService(Object service, Class<T> serviceClass) {
+    public <T> void publishService(Object service, Class<T> serviceClass,String... groupId) {
         //发布到本地列表
-        serviceRegistry.register(service);
+        serviceRegistry.register(service,groupId);
         //发布到注册中心
         serviceRegistryCenter.register(serviceClass.getCanonicalName(),
                 new InetSocketAddress(host,port));

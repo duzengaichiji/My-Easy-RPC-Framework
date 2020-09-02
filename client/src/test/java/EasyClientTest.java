@@ -1,13 +1,10 @@
-import EasyClient.ClientThread;
 import EasyClient.EasyRpcClient;
 import api.HelloObject;
 import api.HelloService;
 import org.junit.Test;
-import EasyClient.RpcClientProxy;
+import proxy.RpcClientProxy;
 import rpcInterfaces.RpcClient;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class EasyClientTest {

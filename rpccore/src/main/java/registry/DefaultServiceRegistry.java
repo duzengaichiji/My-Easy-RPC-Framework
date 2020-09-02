@@ -33,7 +33,7 @@ public class DefaultServiceRegistry implements  ServiceRegistry{
     }
 
     @Override
-    public synchronized <T> void register(T service) {
+    public synchronized <T> void register(T service,String... groupId) {
         String serviceName = service.getClass().getCanonicalName();
         if(registeredService.contains(serviceName)) return;//如果该服务的实现类已经存在，直接忽略
         registeredService.add(serviceName);
@@ -47,7 +47,7 @@ public class DefaultServiceRegistry implements  ServiceRegistry{
     }
 
     @Override
-    public Object getService(RpcRequest request) {
+    public Object getService(RpcRequest request,String... groupId) {
         Object service = serviceMap.get(request.getInterfactName());
         if(service==null){
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);

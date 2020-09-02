@@ -8,6 +8,7 @@ import servers.handlers.RequestHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
 
@@ -30,8 +31,10 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
             System.out.println("服务器收到请求："+rpcRequest);
             Object service = serviceRegistry.getService(rpcRequest);//通过本地注册中心获得对应实现对象
             Object result = requestHandler.handler(rpcRequest,service);//处理请求
+            TimeUnit.SECONDS.sleep(5);
             if(channelHandlerContext.channel().isActive()&&channelHandlerContext.channel().isWritable()){
-                channelHandlerContext.writeAndFlush(RpcResponse.success(result));
+                //将结果对象response写入通道
+                channelHandlerContext.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
             }
             else{
                 System.out.println("通道不可写");

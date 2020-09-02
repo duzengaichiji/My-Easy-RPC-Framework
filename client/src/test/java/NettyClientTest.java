@@ -1,4 +1,4 @@
-import EasyClient.RpcClientProxy;
+import proxy.RpcClientProxy;
 import api.HelloObject;
 import api.HelloService;
 import nettyClient.NettyClient;

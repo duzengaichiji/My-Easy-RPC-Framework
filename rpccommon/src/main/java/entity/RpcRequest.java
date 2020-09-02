@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 //rpc请求协议
 public class RpcRequest implements Serializable {
+    //请求编号，标识每个唯一的请求
+    private String requestId;
     //待调用接口的名字
     private  String interfactName;
     //待调用方法的名字
@@ -17,6 +19,14 @@ public class RpcRequest implements Serializable {
     public RpcRequest() {
     }
 
+    public RpcRequest(String requestId, String interfactName, String methodName, Object[] parameters, Class<?>[] paramTypes) {
+        this.requestId = requestId;
+        this.interfactName = interfactName;
+        this.methodName = methodName;
+        this.parameters = parameters;
+        this.paramTypes = paramTypes;
+    }
+
     public RpcRequest(String interfactName, String methodName, Object[] parameters, Class<?>[] paramTypes) {
         this.interfactName = interfactName;
         this.methodName = methodName;
@@ -27,11 +37,20 @@ public class RpcRequest implements Serializable {
     @Override
     public String toString() {
         return "RpcRequest{" +
-                "interfactName='" + interfactName + '\'' +
+                "requestId='" + requestId + '\'' +
+                ", interfactName='" + interfactName + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", parameters=" + Arrays.toString(parameters) +
                 ", paramTypes=" + Arrays.toString(paramTypes) +
                 '}';
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     public String getInterfactName() {

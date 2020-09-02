@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+//通过方法签名(MethodSign)识别不同的接口实现
 public class MultiImplServiceRegistry implements ServiceRegistry{
 
     Map<String,Map<MethodSign,Object>> serviceMap = new ConcurrentHashMap<>();
@@ -35,7 +36,7 @@ public class MultiImplServiceRegistry implements ServiceRegistry{
     }
 
     @Override
-    public <T> void register(T service) {
+    public <T> void register(T service,String... groupId) {
         String serviceName = service.getClass().getCanonicalName();
         //该服务的实现已经存在
         if(registeredService.contains(serviceName)) return;
@@ -60,7 +61,7 @@ public class MultiImplServiceRegistry implements ServiceRegistry{
     }
 
     @Override
-    public Object getService(RpcRequest request) {
+    public Object getService(RpcRequest request,String... groupId) {
         Map<MethodSign,Object> targetMethodMap = serviceMap.get(request.getInterfactName());
         if(targetMethodMap==null){
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);

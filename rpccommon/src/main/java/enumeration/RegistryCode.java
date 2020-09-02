@@ -2,8 +2,8 @@ package enumeration;
 
 public enum  RegistryCode {
     SingleImpl(0),
-    MultiImpl(1);
-
+    MultiImpl(1),
+    GroupImpl(2);
     private int code;
 
     RegistryCode(int code) {

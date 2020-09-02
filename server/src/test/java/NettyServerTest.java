@@ -11,7 +11,7 @@ public class NettyServerTest {
     public void nettyServerTest(){
         HelloService helloService = new HelloServiceImpl();
 
-        NettyServer server = new NettyServer("127.0.0.1",9000, RegistryCode.MultiImpl.getCode(), SerializerCode.KRYO.getCode());
+        NettyServer server = new NettyServer("127.0.0.1",9000, RegistryCode.GroupImpl.getCode(), SerializerCode.KRYO.getCode());
         server.publishService(helloService,HelloService.class);
         server.start();
     }

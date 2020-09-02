@@ -3,6 +3,8 @@ package codec;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import enumeration.PackageType;
+import enumeration.RpcError;
+import exception.RpcException;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
@@ -19,7 +21,7 @@ public class CommonDecoder extends ReplayingDecoder {
         int magic = byteBuf.readInt();
         if(magic!=MAGIC_NUMBER){
             System.out.println("无法识别的协议包");
-            //throw new
+            throw new RpcException(RpcError.UNKNOWN_PROTOCOL);
         }
         int packageCode = byteBuf.readInt();
         Class<?> packageClass = null;
@@ -29,13 +31,13 @@ public class CommonDecoder extends ReplayingDecoder {
             packageClass = RpcResponse.class;
         }else{
             System.out.println("无法识别的数据包");
-            //throw new
+            throw new RpcException(RpcError.UNKNOWN_PACKAGE_TYPE);
         }
         int serializerCode = byteBuf.readInt();
         CommonSerializer serializer = CommonSerializer.getByCode(serializerCode);
         if(serializer==null){
             System.out.println("不识别的反序列化器");
-            //throw new
+            throw new RpcException(RpcError.UNKNOWN_SERIALIZER);
         }
         int length = byteBuf.readInt();
         byte[] bytes = new byte[length];

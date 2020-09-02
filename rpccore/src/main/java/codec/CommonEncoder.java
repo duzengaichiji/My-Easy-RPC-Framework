@@ -13,7 +13,6 @@ public class CommonEncoder extends MessageToByteEncoder {
     private CommonSerializer serializer;
 
     public CommonEncoder(CommonSerializer serializer){
-        System.out.println(serializer);
         this.serializer = serializer;
     }
 
