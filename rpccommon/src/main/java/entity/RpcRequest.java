@@ -15,16 +15,19 @@ public class RpcRequest implements Serializable {
     private Object[] parameters;
     //调用方法的参数类型
     private Class<?>[] paramTypes;
+    //服务的分组Id
+    private String groupId;
 
     public RpcRequest() {
     }
 
-    public RpcRequest(String requestId, String interfactName, String methodName, Object[] parameters, Class<?>[] paramTypes) {
+    public RpcRequest(String requestId, String interfactName, String methodName, Object[] parameters, Class<?>[] paramTypes,String ...groupId) {
         this.requestId = requestId;
         this.interfactName = interfactName;
         this.methodName = methodName;
         this.parameters = parameters;
         this.paramTypes = paramTypes;
+        if(groupId.length!=0) this.groupId = groupId[0];
     }
 
     public RpcRequest(String interfactName, String methodName, Object[] parameters, Class<?>[] paramTypes) {
@@ -42,7 +45,16 @@ public class RpcRequest implements Serializable {
                 ", methodName='" + methodName + '\'' +
                 ", parameters=" + Arrays.toString(parameters) +
                 ", paramTypes=" + Arrays.toString(paramTypes) +
+                ", groupId='" + groupId + '\'' +
                 '}';
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     public String getRequestId() {

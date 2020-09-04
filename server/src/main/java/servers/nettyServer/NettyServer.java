@@ -8,6 +8,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import registry.*;
@@ -75,7 +77,7 @@ public class NettyServer implements RpcServer {
             ChannelFuture future = serverBootstrap.bind(port).sync();
             System.out.println("...binding port:"+port+" server start...");
             //添加服务注销的钩子
-            ShutdownHook.getShutdownHook().addClearAllHook(serviceRegistryCenter);
+            //ShutdownHook.getShutdownHook().addClearAllHook(serviceRegistryCenter);
             //关闭通道
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {

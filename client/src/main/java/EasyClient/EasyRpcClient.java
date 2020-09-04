@@ -57,4 +57,11 @@ public class EasyRpcClient implements RpcClient {
             return null;
         }
     }
+
+    @Override
+    public void setServiceGroup(Class service, String groupId) {
+
+    }
+
+
 }

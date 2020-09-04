@@ -24,22 +24,22 @@ public class GroupServiceRegistry implements ServiceRegistry {
     @Override
     public <T> void register(T service, String... groupId) {
         String serviceName = service.getClass().getCanonicalName();
-        String interfaceName = null;
+        Class<?> interfaceName = null;
         try {
-            interfaceName = service.getClass().getInterfaces()[0].getName();
+            interfaceName = service.getClass().getInterfaces()[0];
             String group;
-            if(groupId==null) group = "default";
+            if(groupId.length==0) group = "default";
             else group = groupId[0];
             Map<String,Object> serviceGroup = serviceMap.get(group);
             if(serviceGroup!=null){
-                serviceGroup.put(serviceName,service);
+                serviceGroup.put(interfaceName.getCanonicalName(),service);
             }else{
                 Map<String,Object> newGroup = new ConcurrentHashMap<>();
-                newGroup.put(serviceName,service);
+                newGroup.put(interfaceName.getCanonicalName(),service);
                 serviceMap.put(group,newGroup);
             }
             registeredService.add(serviceName);
-            System.out.println("向分组:"+group+" ，接口:"+interfaceName+" 注册服务:"+serviceName);
+            System.out.println("向分组:"+group+" ，接口:"+interfaceName.getName()+" 注册服务:"+serviceName);
         }catch (Exception e){
             e.printStackTrace();
             throw new RpcException(RpcError.SERVICE_NOT_IMPLEMENT_ANY_INTERFACE);
@@ -47,11 +47,11 @@ public class GroupServiceRegistry implements ServiceRegistry {
     }
 
     @Override
-    public Object getService(RpcRequest rpcRequest,String... groupId) {
-        String group;
-        if(groupId==null) group = "default";
-        else group = groupId[0];
-        Map<String,Object> serviceGroup = serviceMap.get(group);
+    public Object getService(RpcRequest rpcRequest) {
+        String groupId = rpcRequest.getGroupId();
+        if(groupId==null) groupId = "default";
+        Map<String,Object> serviceGroup = serviceMap.get(groupId);
+        System.out.println(serviceGroup.keySet());
         if(serviceGroup==null){
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);
         }

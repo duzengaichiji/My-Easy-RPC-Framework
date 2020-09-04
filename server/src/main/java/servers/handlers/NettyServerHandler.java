@@ -28,13 +28,12 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcRequest rpcRequest) throws Exception {
         try{
             //if 接收到心跳请求
-            System.out.println("服务器收到请求："+rpcRequest);
             Object service = serviceRegistry.getService(rpcRequest);//通过本地注册中心获得对应实现对象
             Object result = requestHandler.handler(rpcRequest,service);//处理请求
-            TimeUnit.SECONDS.sleep(5);
             if(channelHandlerContext.channel().isActive()&&channelHandlerContext.channel().isWritable()){
                 //将结果对象response写入通道
-                channelHandlerContext.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
+                ChannelFuture future = channelHandlerContext.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
+                //System.out.println(future);
             }
             else{
                 System.out.println("通道不可写");

@@ -27,6 +27,9 @@ public class RpcClientProxy implements InvocationHandler {
 
     //封装rpc请求，通过客户端进行发送
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        //要通过服务的名字，获取其对应的分组，然后将其传到服务端
+        String serviceName = method.getDeclaringClass().getName();
+        String groupId = NettyClient.getServiceGroupMap().get(serviceName);
         System.out.println("调用方法:"+method.getName());
         //封装rpc请求请求
         RpcRequest rpcRequest = new RpcRequest(
@@ -34,7 +37,8 @@ public class RpcClientProxy implements InvocationHandler {
                 method.getDeclaringClass().getName(),
                 method.getName(),
                 args,
-                method.getParameterTypes()
+                method.getParameterTypes(),
+                groupId
         );
         RpcResponse rpcResponse = null;
         //如果用的是netty客户端

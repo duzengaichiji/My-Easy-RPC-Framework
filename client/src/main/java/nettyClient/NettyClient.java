@@ -22,7 +22,10 @@ import serializer.JsonSerializer;
 import serializer.KryoSerializer;
 
 import java.net.InetSocketAddress;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -31,11 +34,14 @@ public class NettyClient implements RpcClient {
     private final static Bootstrap bootstrap;
     private static final EventLoopGroup group;
     private UnProcessedResponse unProcessedResponse;
+    //用来映射每个服务对应的分组，因为一个服务可能有多种实现
+    private static Map<String,String> serviceGroupMap;
 
     static {
         group = new NioEventLoopGroup();
         bootstrap = new Bootstrap();
         bootstrap.group(group).channel(NioSocketChannel.class);
+        serviceGroupMap = new ConcurrentHashMap<String,String>();
     }
 
     //远程服务注册中心
@@ -47,6 +53,14 @@ public class NettyClient implements RpcClient {
         this.serviceRegistryCenter = new NacosServiceRegistryCenter();
         this.serializer = CommonSerializer.getByCode(serializer);
         this.unProcessedResponse = SingleTonFactory.getInstance(UnProcessedResponse.class);
+    }
+
+    public static Map<String, String> getServiceGroupMap() {
+        return serviceGroupMap;
+    }
+
+    public static void setServiceGroupMap(Map<String, String> serviceGroupMap) {
+        NettyClient.serviceGroupMap = serviceGroupMap;
     }
 
     //将结果封装进CompletableFuture，异步的处理请求结果
@@ -89,5 +103,13 @@ public class NettyClient implements RpcClient {
             Thread.currentThread().interrupt();
         }
         return resultFuture;
+    }
+
+    @Override
+    public void setServiceGroup(Class service, String groupId) {
+        if(serviceGroupMap.containsKey(service.getCanonicalName())){
+            serviceGroupMap.remove(service.getCanonicalName());
+        }
+        serviceGroupMap.put(service.getCanonicalName(),groupId);
     }
 }

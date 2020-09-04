@@ -47,7 +47,7 @@ public class DefaultServiceRegistry implements  ServiceRegistry{
     }
 
     @Override
-    public Object getService(RpcRequest request,String... groupId) {
+    public Object getService(RpcRequest request) {
         Object service = serviceMap.get(request.getInterfactName());
         if(service==null){
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);

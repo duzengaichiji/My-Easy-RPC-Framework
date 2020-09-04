@@ -7,7 +7,7 @@ public interface ServiceRegistry {
     //服务注册
     <T> void register(T service,String... groupId);
     //获取服务
-    Object getService(RpcRequest rpcRequest,String... groupId);
+    Object getService(RpcRequest rpcRequest);
 
     int getCode();
 

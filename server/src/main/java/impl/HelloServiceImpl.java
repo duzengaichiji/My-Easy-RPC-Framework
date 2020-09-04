@@ -9,6 +9,6 @@ public class HelloServiceImpl implements HelloService {
     public String hello(HelloObject object) {
         //logger.debug("接收到:{}",object.getMessage());
         System.out.println("接收到:{}"+object.getMessage());
-        return "这是调用的返回值,id=" + object.getId();
+        return "this is the return value,id=" + object.getId();
     }
 }

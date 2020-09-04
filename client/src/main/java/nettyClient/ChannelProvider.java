@@ -34,8 +34,9 @@ public class ChannelProvider {
         bootstrap.handler(new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel socketChannel) throws Exception {
-                socketChannel.pipeline().addLast(new CommonEncoder(commonSerializer))
+                socketChannel.pipeline()
                         .addLast(new CommonDecoder())
+                        .addLast(new CommonEncoder(commonSerializer))
                         .addLast(new NettyClientHandler());
             }
         });
