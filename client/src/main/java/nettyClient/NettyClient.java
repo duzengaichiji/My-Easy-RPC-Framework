@@ -1,7 +1,5 @@
 package nettyClient;
 
-import codec.CommonDecoder;
-import codec.CommonEncoder;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import enumeration.RpcError;
@@ -10,26 +8,19 @@ import factory.SingleTonFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.AttributeKey;
 import registry.NacosServiceRegistryCenter;
 import registry.ServiceRegistryCenter;
 import results.UnProcessedResponse;
-import rpcInterfaces.RpcClient;
+import rpcInterfaces.AbstractRpcClient;
 import serializer.CommonSerializer;
-import serializer.JsonSerializer;
-import serializer.KryoSerializer;
 
 import java.net.InetSocketAddress;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
-public class NettyClient implements RpcClient {
+public class NettyClient extends AbstractRpcClient {
 
     private final static Bootstrap bootstrap;
     private static final EventLoopGroup group;
@@ -55,6 +46,20 @@ public class NettyClient implements RpcClient {
         this.unProcessedResponse = SingleTonFactory.getInstance(UnProcessedResponse.class);
     }
 
+    public NettyClient(Integer serializer,int connectRetries,int connectWaitTime){
+        this(serializer);
+        this.setConnectRetries(connectRetries);
+        this.setConnectWaitTime(connectWaitTime);
+    }
+
+    public NettyClient(Integer serializer,int connectRetries,int connectWaitTime,int executeRetries,int executeWaitTime){
+        this(serializer);
+        this.setExecuteRetries(executeRetries);
+        this.setExecuteWaitTime(executeWaitTime);
+        this.setConnectWaitTime(connectWaitTime);
+        this.setConnectRetries(connectRetries);
+    }
+
     public static Map<String, String> getServiceGroupMap() {
         return serviceGroupMap;
     }
@@ -63,32 +68,48 @@ public class NettyClient implements RpcClient {
         NettyClient.serviceGroupMap = serviceGroupMap;
     }
 
-    //将结果封装进CompletableFuture，异步的处理请求结果
+    //分离连接通道的方法和发送请求的方法，以便多次重试
     @Override
-    public CompletableFuture<RpcResponse> sendRequest(RpcRequest request) {
+    public Channel getChannel(RpcRequest request) {
         if(serializer==null){
             System.out.println("未设置序列化器");
             throw new RpcException(RpcError.SERIALIZER_NOT_FOUND);
         }
+
+        String serviceSign = request.getInterfactName()+request.getGroupId();
+        //从缓存中查找服务对应的socket地址
+        InetSocketAddress inetSocketAddress = ChannelProvider.getServiceAddress(serviceSign);
+        if(inetSocketAddress==null) {
+            //通过注册中心获取服务的 套接字，直接通过套接字就能发送请求
+            inetSocketAddress = serviceRegistryCenter.lookupService(request.getInterfactName());
+            ChannelProvider.putServiceAddress(serviceSign,inetSocketAddress);
+        }else {
+            System.out.println("the service is found in cache");
+        }
+        //ChannelProvider
+        Channel channel = ChannelProvider.get(inetSocketAddress,serializer);
+        if(!channel.isActive()){
+            group.shutdownGracefully();
+            System.out.println("服务端通道未打开");
+            return null;
+        }
+        return channel;
+    }
+
+    //将结果封装进CompletableFuture，异步的处理请求结果
+    @Override
+    public CompletableFuture<RpcResponse> sendRequest(Channel channel,RpcRequest request) {
         //用future接收结果的好处就是，可以在任何需要的时候去获取，而不是必须在当前就阻塞的等待服务端对请求的处理
         CompletableFuture<RpcResponse> resultFuture = new CompletableFuture<>();
         try {
-            //通过注册中心获取服务的 套接字，直接通过套接字就能发送请求
-            InetSocketAddress inetSocketAddress = serviceRegistryCenter.lookupService(request.getInterfactName());
-            Channel channel = ChannelProvider.get(inetSocketAddress,serializer);
-            if(!channel.isActive()){
-                group.shutdownGracefully();
-                System.out.println("服务端通道未打开");
-                return null;
-            }
             //将future结果存入未完成列表，在需要的地方取出
             unProcessedResponse.put(request.getRequestId(),resultFuture);
             channel.writeAndFlush(request).addListener(future1->{
                 if(future1.isSuccess()){
-                    System.out.println("客户端发送消息"+ request.toString());
+                    System.out.println("客户端发送消息:"+ request.toString());
                 }else{
                     resultFuture.completeExceptionally(future1.cause());
-                    System.out.println("发送消息时有错误"+future1.cause());
+                    System.out.println("发送消息时有错误:"+future1.cause());
                 }
             });
             /*

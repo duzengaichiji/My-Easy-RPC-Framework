@@ -1,8 +1,10 @@
 package rpcInterfaces;
 
 import entity.RpcRequest;
+import io.netty.channel.Channel;
 
 public interface RpcClient {
-    Object sendRequest(RpcRequest request);
+    Channel getChannel(RpcRequest request);
+    Object sendRequest(Channel channel,RpcRequest request);
     void setServiceGroup(Class service,String groupId);
 }

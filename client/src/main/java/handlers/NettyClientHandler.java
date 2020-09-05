@@ -1,4 +1,4 @@
-package nettyClient;
+package handlers;
 
 import entity.RpcResponse;
 import factory.SingleTonFactory;

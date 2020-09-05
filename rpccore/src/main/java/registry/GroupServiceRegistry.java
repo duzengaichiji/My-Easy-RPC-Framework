@@ -51,7 +51,6 @@ public class GroupServiceRegistry implements ServiceRegistry {
         String groupId = rpcRequest.getGroupId();
         if(groupId==null) groupId = "default";
         Map<String,Object> serviceGroup = serviceMap.get(groupId);
-        System.out.println(serviceGroup.keySet());
         if(serviceGroup==null){
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);
         }

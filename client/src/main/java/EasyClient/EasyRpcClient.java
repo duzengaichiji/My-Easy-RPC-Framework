@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class EasyRpcClient implements RpcClient {
+public class EasyRpcClient {
     private String host;
     private int port;
 
@@ -41,7 +41,6 @@ public class EasyRpcClient implements RpcClient {
                 '}';
     }
 
-    @Override
     public Object sendRequest(RpcRequest request) {
         try{
             //尝试向对应端口发送rpc请求
@@ -58,7 +57,6 @@ public class EasyRpcClient implements RpcClient {
         }
     }
 
-    @Override
     public void setServiceGroup(Class service, String groupId) {
 
     }
