@@ -2,12 +2,14 @@ package handlers;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
 
+@ChannelHandler.Sharable
 public class ConnectorIdleStateTrigger extends ChannelInboundHandlerAdapter {
     private static final ByteBuf HEARTBEAT_SEQUENCE = Unpooled.unreleasableBuffer(Unpooled.copiedBuffer("Heartbeat",
             CharsetUtil.UTF_8));
@@ -16,6 +18,7 @@ public class ConnectorIdleStateTrigger extends ChannelInboundHandlerAdapter {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
             IdleState state = ((IdleStateEvent) evt).state();
+            //检测到写空闲状态，触发写入操作
             if (state == IdleState.WRITER_IDLE) {
                 // write heartbeat to server
                 ctx.writeAndFlush(HEARTBEAT_SEQUENCE.duplicate());

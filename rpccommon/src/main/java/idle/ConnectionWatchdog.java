@@ -1,14 +1,30 @@
 package idle;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
 import io.netty.util.Timeout;
 import io.netty.util.Timer;
 import io.netty.util.TimerTask;
 
 import java.util.concurrent.TimeUnit;
 
-public class ConnectionWatchdog extends ChannelInboundHandlerAdapter implements TimerTask,ChannelHandlerHolder {
+/**
+ *
+ * 重连检测狗，当发现当前的链路不稳定关闭之后，进行12次重连
+ */
+/*
+由于重试的过程中会创建新的pipeline，所以需要让该handler变得shareable
+即对于多个pipeline可以共享，所以这也是为什么run里面的逻辑必须保证线程安全
+//如果去掉这个注解，则会导致定时任务尝试重新建立连接时创建新的channel，但是新的channel创建失败了，后续的链就不会执行了
+ */
+@Sharable
+public abstract class ConnectionWatchdog extends ChannelInboundHandlerAdapter implements TimerTask , ChannelHandlerHolder {
 
     private final Bootstrap bootstrap;
     private final Timer timer;
@@ -19,7 +35,8 @@ public class ConnectionWatchdog extends ChannelInboundHandlerAdapter implements 
     private volatile boolean reconnect = true;
     private int attempts;
 
-    public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, int port, String host, boolean reconnect) {
+
+    public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, int port,String host, boolean reconnect) {
         this.bootstrap = bootstrap;
         this.timer = timer;
         this.port = port;
@@ -27,10 +44,14 @@ public class ConnectionWatchdog extends ChannelInboundHandlerAdapter implements 
         this.reconnect = reconnect;
     }
 
-    //通道每次被激活（active）时，将尝试次数置零
+    /**
+     * channel链路每次active的时候，将其连接的次数重新☞ 0
+     */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+
         System.out.println("当前链路已经激活了，重连尝试次数重新置为0");
+
         attempts = 0;
         ctx.fireChannelActive();
     }
@@ -50,34 +71,38 @@ public class ConnectionWatchdog extends ChannelInboundHandlerAdapter implements 
         ctx.fireChannelInactive();
     }
 
-    @Override
-    public ChannelHandler[] handlers() {
-        return new ChannelHandler[0];
-    }
 
-    @Override
     public void run(Timeout timeout) throws Exception {
+
         ChannelFuture future;
-        synchronized (bootstrap){
+        //bootstrap已经初始化好了，只需要将handler填入就可以了
+        synchronized (bootstrap) {
             bootstrap.handler(new ChannelInitializer<Channel>() {
+
                 @Override
-                protected void initChannel(Channel channel) throws Exception {
-                    channel.pipeline().addLast(handlers());
+                protected void initChannel(Channel ch) throws Exception {
+
+                    ch.pipeline().addLast(handlers());
                 }
             });
             future = bootstrap.connect(host,port);
         }
+        //future对象
         future.addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-                boolean succeed = future.isSuccess();
-                if(!succeed){
+
+            public void operationComplete(ChannelFuture f) throws Exception {
+                boolean succeed = f.isSuccess();
+
+                //如果重连失败，则调用ChannelInactive方法，再次出发重连事件，一直尝试12次，如果失败则不再重连
+                if (!succeed) {
                     System.out.println("重连失败");
-                    future.channel().pipeline().fireChannelActive();
-                }else {
+                    f.channel().pipeline().fireChannelInactive();
+                }else{
                     System.out.println("重连成功");
                 }
             }
         });
+
     }
+
 }
