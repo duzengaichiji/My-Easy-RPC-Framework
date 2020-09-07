@@ -56,7 +56,7 @@ public class RpcClientProxy implements InvocationHandler {
                 channel = client.getChannel(rpcRequest);
                 retries += 1;
                 System.out.println("尝试连接第 "+retries+" 次");
-                TimeUnit.SECONDS.sleep(((NettyClient) client).getConnectWaitTime());
+                if(retries>1)  TimeUnit.SECONDS.sleep(((NettyClient) client).getConnectWaitTime());
             }
             if (channel == null) {
                 //连接服务端通道失败

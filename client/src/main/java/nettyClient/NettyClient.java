@@ -1,18 +1,23 @@
 package nettyClient;
 
+import api.HelloObject;
+import api.HelloService;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import enumeration.RpcError;
+import enumeration.SerializerCode;
 import exception.RpcException;
 import factory.SingleTonFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import proxy.RpcClientProxy;
 import registry.NacosServiceRegistryCenter;
 import registry.ServiceRegistryCenter;
 import results.UnProcessedResponse;
 import rpcInterfaces.AbstractRpcClient;
+import rpcInterfaces.RpcClient;
 import serializer.CommonSerializer;
 
 import java.net.InetSocketAddress;
@@ -23,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class NettyClient extends AbstractRpcClient {
 
     private final static Bootstrap bootstrap;
-    private static final EventLoopGroup group;
+    private final static EventLoopGroup group;
     private UnProcessedResponse unProcessedResponse;
     //用来映射每个服务对应的分组，因为一个服务可能有多种实现
     private static Map<String,String> serviceGroupMap;
@@ -82,6 +87,7 @@ public class NettyClient extends AbstractRpcClient {
         if(inetSocketAddress==null) {
             //通过注册中心获取服务的 套接字，直接通过套接字就能发送请求
             inetSocketAddress = serviceRegistryCenter.lookupService(request.getInterfactName());
+            //缓存
             ChannelProvider.putServiceAddress(serviceSign,inetSocketAddress);
         }else {
             System.out.println("the service is found in cache");
@@ -132,5 +138,16 @@ public class NettyClient extends AbstractRpcClient {
             serviceGroupMap.remove(service.getCanonicalName());
         }
         serviceGroupMap.put(service.getCanonicalName(),groupId);
+    }
+
+    public static void main(String[] args) {
+        RpcClient client = new NettyClient(SerializerCode.KRYO.getCode());
+        //setting service groups
+        client.setServiceGroup(HelloService.class,"group1");
+        RpcClientProxy rpcClientProxy = new RpcClientProxy(client);
+        HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
+        HelloObject object = new HelloObject(12,"netty message");
+        String res = helloService.hello(object);
+        System.out.println(res);
     }
 }

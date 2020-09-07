@@ -8,6 +8,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 
 @ChannelHandler.Sharable
 public class AcceptorIdleStateTrigger extends ChannelInboundHandlerAdapter {
+    //当通道状态产生变化时，可以在这里进行操作
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         //空闲状态处理

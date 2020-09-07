@@ -1,5 +1,7 @@
 package servers.handlers;
 
+import entity.HeartbeatRequest;
+import entity.Request;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import io.netty.channel.*;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
+public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
 
     private static RequestHandler requestHandler;//请求处理器
     private static ServiceRegistry serviceRegistry;//本地服务注册中心，记录服务接口和对应的实现了类
@@ -25,18 +27,23 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<RpcRequest> 
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcRequest rpcRequest) throws Exception {
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Request request) throws Exception {
         try{
+            System.out.println(request.toString());
             //if 接收到心跳请求
-            Object service = serviceRegistry.getService(rpcRequest);//通过本地注册中心获得对应实现对象
-            Object result = requestHandler.handler(rpcRequest,service);//处理请求
-            if(channelHandlerContext.channel().isActive()&&channelHandlerContext.channel().isWritable()){
-                //将结果对象response写入通道
-                ChannelFuture future = channelHandlerContext.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
-                //System.out.println(future);
-            }
-            else{
-                System.out.println("通道不可写");
+            if(request instanceof HeartbeatRequest){
+                System.out.println(channelHandlerContext.channel().remoteAddress()+" heart beat!!");
+                return;
+            }else if(request instanceof RpcRequest) {
+                Object service = serviceRegistry.getService((RpcRequest) request);//通过本地注册中心获得对应实现对象
+                Object result = requestHandler.handler((RpcRequest) request, service);//处理请求
+                if (channelHandlerContext.channel().isActive() && channelHandlerContext.channel().isWritable()) {
+                    //将结果对象response写入通道
+                    ChannelFuture future = channelHandlerContext.writeAndFlush(RpcResponse.success(result, ((RpcRequest) request).getRequestId()));
+                    //System.out.println(future);
+                } else {
+                    System.out.println("通道不可写");
+                }
             }
         }finally {
         }

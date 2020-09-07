@@ -1,5 +1,7 @@
 package nettyClient;
 
+import codec.CommonDecoder;
+import codec.CommonEncoder;
 import handlers.ConnectorIdleStateTrigger;
 import handlers.HeartBeatClientHandler;
 import idle.ConnectionWatchdog;
@@ -13,6 +15,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.HashedWheelTimer;
+import serializer.CommonSerializer;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -30,7 +33,7 @@ public class HeartBeatClient  {
         boot.group(group).channel(NioSocketChannel.class).handler(new LoggingHandler(LogLevel.INFO));
 
         //handler集合
-        final ConnectionWatchdog watchdog = new ConnectionWatchdog(boot, timer, port,host, true) {
+        final ConnectionWatchdog watchdog = new ConnectionWatchdog(boot, timer,host,port, true) {
 
             public ChannelHandler[] handlers() {
                 return new ChannelHandler[] {
@@ -38,6 +41,8 @@ public class HeartBeatClient  {
                         new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS),
                         idleStateTrigger,
                         new StringDecoder(),
+                        //new CommonDecoder(),
+                        //new CommonEncoder(CommonSerializer.getByCode(0)),
                         new StringEncoder(),
                         new HeartBeatClientHandler()
                 };

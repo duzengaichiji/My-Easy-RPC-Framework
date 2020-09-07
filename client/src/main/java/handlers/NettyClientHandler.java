@@ -2,11 +2,13 @@ package handlers;
 
 import entity.RpcResponse;
 import factory.SingleTonFactory;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
 import results.UnProcessedResponse;
 
+@ChannelHandler.Sharable
 public class NettyClientHandler extends SimpleChannelInboundHandler<RpcResponse> {
 
     private UnProcessedResponse unProcessedResponse;

@@ -1,8 +1,12 @@
 package servers.nettyServer;
 
 import annotation.Service;
+import api.HelloService;
 import codec.CommonDecoder;
 import codec.CommonEncoder;
+import enumeration.RegistryCode;
+import enumeration.SerializerCode;
+import impl.HelloServiceImpl;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -12,13 +16,16 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import registry.*;
 import rpcInterfaces.RpcServer;
 import serializer.CommonSerializer;
+import servers.handlers.AcceptorIdleStateTrigger;
 import servers.handlers.NettyServerHandler;
 import util.ShutdownHook;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 public class NettyServer implements RpcServer {
 
@@ -27,6 +34,7 @@ public class NettyServer implements RpcServer {
     private final CommonSerializer serializer;//序列化器
     private ServiceRegistry serviceRegistry;//本地服务映射表
     private ServiceRegistryCenter serviceRegistryCenter;//远程服务注册中心
+    private final AcceptorIdleStateTrigger acceptorIdleStateTrigger = new AcceptorIdleStateTrigger();//通道状态检测器
 
     public NettyServer(String host,int port,Integer serializer,Integer registry){
         this.host = host;
@@ -67,6 +75,12 @@ public class NettyServer implements RpcServer {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             //在pipeline中添加handler类
                             ChannelPipeline pipeline = socketChannel.pipeline();
+                            //添加通道检测（心跳）处理器，设置每隔一定时间检测读/写事件
+                            //这个会检测通道的空闲状态，超过设定的时间没有触发响应的事件（ChannelRead,ChannelWrite）会引发userEventTriggered
+                            pipeline.addLast(new IdleStateHandler(5,0,0, TimeUnit.SECONDS));
+                            //添加单独的状态处理器
+                            pipeline.addLast(acceptorIdleStateTrigger);
+                            //服务端的其他部分没有特别之处
                             pipeline.addLast(new CommonEncoder(serializer));//传入编码器，解码器
                             pipeline.addLast(new CommonDecoder());
                             pipeline.addLast(new NettyServerHandler(serviceRegistry));//传入本地注册中心进请求处理器
@@ -96,5 +110,13 @@ public class NettyServer implements RpcServer {
         //发布到注册中心
         serviceRegistryCenter.register(serviceClass.getCanonicalName(),
                 new InetSocketAddress(host,port));
+    }
+
+    public static void main(String[] args) {
+        HelloService helloService = new HelloServiceImpl();
+
+        NettyServer server = new NettyServer("127.0.0.1",9000, SerializerCode.KRYO.getCode(), RegistryCode.GroupImpl.getCode());
+        server.publishService(helloService,HelloService.class,"group1");
+        server.start();
     }
 }

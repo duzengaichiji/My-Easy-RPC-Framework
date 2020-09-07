@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 //rpc请求协议
-public class RpcRequest implements Serializable {
+public class RpcRequest implements Serializable,Request {
     //请求编号，标识每个唯一的请求
     private String requestId;
     //待调用接口的名字

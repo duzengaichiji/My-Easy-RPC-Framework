@@ -1,5 +1,7 @@
 package servers.nettyServer;
 
+import codec.CommonDecoder;
+import codec.CommonEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -13,6 +15,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import serializer.CommonSerializer;
 import servers.handlers.AcceptorIdleStateTrigger;
 import servers.handlers.HeartBeatServerHandler;
 
@@ -40,9 +43,11 @@ public class HeartBeatServer {
                             //插入IdleStataHandler，这个会检测通道的空闲状态，超过设定的时间没有触发响应的事件（ChannelRead,ChannelWrite）会引发userEventTriggered
                             //这里是5秒内没有读事件发生就会触发userEventTriggered
                             ch.pipeline().addLast(new IdleStateHandler(5, 0, 0, TimeUnit.SECONDS));
-                            ch.pipeline().addLast(idleStateTrigger);
                             ch.pipeline().addLast("decoder", new StringDecoder());
                             ch.pipeline().addLast("encoder", new StringEncoder());
+                            ch.pipeline().addLast(idleStateTrigger);
+                            //ch.pipeline().addLast("decoder",new CommonDecoder());
+                            //ch.pipeline().addLast("encoder",new CommonEncoder(CommonSerializer.getByCode(0)));
                             ch.pipeline().addLast(new HeartBeatServerHandler());
                         };
 

@@ -2,12 +2,17 @@ package nettyClient;
 
 import codec.CommonDecoder;
 import codec.CommonEncoder;
+import handlers.ConnectorIdleStateTrigger;
+import handlers.HeartBeatClientHandler;
 import handlers.NettyClientHandler;
+import idle.ConnectionWatchdog;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.HashedWheelTimer;
 import serializer.CommonSerializer;
 
 import java.net.InetSocketAddress;
@@ -15,6 +20,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class ChannelProvider {
     private static EventLoopGroup eventLoopGroup;
@@ -23,6 +29,10 @@ public class ChannelProvider {
     private static Map<String,InetSocketAddress> socketAddressMap = new ConcurrentHashMap<>();
     //<请求地址,通道>的本地缓存，避免多次获取通道，实现通道复用
     private static Map<String,Channel> channelMap = new ConcurrentHashMap<>();
+    //客户端的心跳事件处理器
+    private static final ConnectorIdleStateTrigger idleStateTrigger = new ConnectorIdleStateTrigger();
+    //重连时使用的异步定时处理器
+    private static final HashedWheelTimer timer = new HashedWheelTimer();
 
     //建立到服务端的连接
     public static Channel get(InetSocketAddress inetSocketAddress, CommonSerializer commonSerializer){
@@ -35,18 +45,33 @@ public class ChannelProvider {
                 channelMap.remove(key);
             }
         }
-        bootstrap.handler(new ChannelInitializer<SocketChannel>() {
-            @Override
-            protected void initChannel(SocketChannel socketChannel) throws Exception {
-                socketChannel.pipeline()
-                        .addLast(new CommonDecoder())
-                        .addLast(new CommonEncoder(commonSerializer))
-                        .addLast(new NettyClientHandler());
-            }
-        });
+
+        ConnectionWatchdog watchdog = null;
+//        final ConnectionWatchdog watchdog = new ConnectionWatchdog(bootstrap, timer, inetSocketAddress, true,12) {
+//            public ChannelHandler[] handlers() {
+//                return new ChannelHandler[] {
+//                        //connectionWatchdog本身也是handler，必须加入pipeline
+//                        this,
+//                        new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS),
+//                        idleStateTrigger,
+//                        new CommonDecoder(),
+//                        new CommonEncoder(commonSerializer),
+//                        new NettyClientHandler()
+//                };
+//            }
+//        };
+
         Channel channel = null;
         try {
-            channel = connect(bootstrap,inetSocketAddress);
+            synchronized (bootstrap){
+                bootstrap.handler(new ChannelInitializer<SocketChannel>(){
+                    @Override
+                    protected void initChannel(SocketChannel channel) throws Exception {
+                        channel.pipeline().addLast(watchdog.handlers());
+                    }
+                });
+                channel = connect(bootstrap,inetSocketAddress);
+            }
         }catch (ExecutionException e){
             System.out.println("连接失败");
             e.printStackTrace();
@@ -67,6 +92,7 @@ public class ChannelProvider {
                 completableFuture.complete(future.channel());
             }
         });
+        //阻塞的获得future的结果
         return completableFuture.get();
     }
 
