@@ -5,6 +5,10 @@ import java.io.Serializable;
 public class HeartbeatRequest implements Serializable,Request {
     private String requestId;
 
+    public HeartbeatRequest(){
+
+    }
+
     @Override
     public String toString() {
         return "HeartbeatRequest{" +

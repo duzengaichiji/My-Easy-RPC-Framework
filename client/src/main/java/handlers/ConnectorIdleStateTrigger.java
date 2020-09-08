@@ -17,9 +17,7 @@ import java.util.UUID;
 public class ConnectorIdleStateTrigger extends ChannelInboundHandlerAdapter {
 //    private static final ByteBuf HEARTBEAT_SEQUENCE = Unpooled.unreleasableBuffer(Unpooled.copiedBuffer("Heartbeat",
 //            CharsetUtil.UTF_8));
-    //private static final HeartbeatRequest heartbeatRequest = new HeartbeatRequest(UUID.randomUUID().toString());
-    //鉴于对编码解码器了解不足，暂时用这个代替心跳包
-    private static final RpcRequest heartbeatRequest = new RpcRequest("heartBeat","fuck","fuck",null,null,"group1");
+    private static final HeartbeatRequest heartbeatRequest = new HeartbeatRequest(UUID.randomUUID().toString());
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {

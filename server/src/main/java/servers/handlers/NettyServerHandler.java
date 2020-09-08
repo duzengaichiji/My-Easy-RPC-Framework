@@ -30,14 +30,10 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Request request) throws Exception {
         try{
             //if 接收到心跳请求
-//            if(request instanceof HeartbeatRequest){
-////                System.out.println(channelHandlerContext.channel().remoteAddress()+" heart beat!!");
-////                return;
-////            }else if(request instanceof RpcRequest) {
-            if(((RpcRequest) request).getRequestId().equals("heartBeat")) {
-                System.out.println(channelHandlerContext.channel().remoteAddress() + ": heart beat!!");
+            if(request instanceof HeartbeatRequest){
+                System.out.println(channelHandlerContext.channel().remoteAddress()+" heart beat!!");
                 return;
-            }else {
+            }else if(request instanceof RpcRequest) {
                 Object service = serviceRegistry.getService((RpcRequest) request);//通过本地注册中心获得对应实现对象
                 Object result = requestHandler.handler((RpcRequest) request, service);//处理请求
                 if (channelHandlerContext.channel().isActive() && channelHandlerContext.channel().isWritable()) {
