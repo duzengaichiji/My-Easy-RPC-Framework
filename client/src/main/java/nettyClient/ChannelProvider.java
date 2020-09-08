@@ -3,7 +3,6 @@ package nettyClient;
 import codec.CommonDecoder;
 import codec.CommonEncoder;
 import handlers.ConnectorIdleStateTrigger;
-import handlers.HeartBeatClientHandler;
 import handlers.NettyClientHandler;
 import idle.ConnectionWatchdog;
 import io.netty.bootstrap.Bootstrap;
@@ -46,20 +45,19 @@ public class ChannelProvider {
             }
         }
 
-        ConnectionWatchdog watchdog = null;
-//        final ConnectionWatchdog watchdog = new ConnectionWatchdog(bootstrap, timer, inetSocketAddress, true,12) {
-//            public ChannelHandler[] handlers() {
-//                return new ChannelHandler[] {
-//                        //connectionWatchdog本身也是handler，必须加入pipeline
-//                        this,
-//                        new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS),
-//                        idleStateTrigger,
-//                        new CommonDecoder(),
-//                        new CommonEncoder(commonSerializer),
-//                        new NettyClientHandler()
-//                };
-//            }
-//        };
+        final ConnectionWatchdog watchdog = new ConnectionWatchdog(bootstrap, timer, inetSocketAddress, true,12) {
+            public ChannelHandler[] handlers() {
+                return new ChannelHandler[] {
+                        //connectionWatchdog本身也是handler，必须加入pipeline
+                        this,
+                        new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS),
+                        idleStateTrigger,
+                        new CommonDecoder(),
+                        new CommonEncoder(commonSerializer),
+                        new NettyClientHandler()
+                };
+            }
+        };
 
         Channel channel = null;
         try {

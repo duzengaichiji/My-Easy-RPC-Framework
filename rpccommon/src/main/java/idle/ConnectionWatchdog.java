@@ -30,28 +30,28 @@ public abstract class ConnectionWatchdog extends ChannelInboundHandlerAdapter im
 
     private final Bootstrap bootstrap;
     private final Timer timer;
-    //private final InetSocketAddress inetSocketAddress;
-    private final String post;
-    private final int port;
+    private final InetSocketAddress inetSocketAddress;
+    //private final String post;
+    //private final int port;
     private volatile boolean reconnect = true;
     private int attempts;
 
-    public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, String post, int port, boolean reconnect) {
-        this.bootstrap = bootstrap;
-        this.timer = timer;
-        this.post = post;
-        this.port = port;
-        this.reconnect = reconnect;
-        attempts = 12;
-    }
-
-    //    public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, InetSocketAddress inetSocketAddress, boolean reconnect, int attempts) {
+//    public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, String post, int port, boolean reconnect) {
 //        this.bootstrap = bootstrap;
 //        this.timer = timer;
-//        this.inetSocketAddress = inetSocketAddress;
+//        this.post = post;
+//        this.port = port;
 //        this.reconnect = reconnect;
-//        this.attempts = attempts;
+//        attempts = 12;
 //    }
+
+    public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, InetSocketAddress inetSocketAddress, boolean reconnect, int attempts) {
+        this.bootstrap = bootstrap;
+        this.timer = timer;
+        this.inetSocketAddress = inetSocketAddress;
+        this.reconnect = reconnect;
+        this.attempts = attempts;
+    }
 
     /**
      * channel链路每次active的时候，将其连接的次数重新☞ 0
@@ -92,8 +92,8 @@ public abstract class ConnectionWatchdog extends ChannelInboundHandlerAdapter im
                     ch.pipeline().addLast(handlers());
                 }
             });
-            //future = bootstrap.connect(inetSocketAddress);
-            future = bootstrap.connect(post,port);
+            future = bootstrap.connect(inetSocketAddress);
+            //future = bootstrap.connect(post,port);
         }
         //future对象
         future.addListener(new ChannelFutureListener() {
