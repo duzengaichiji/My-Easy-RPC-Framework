@@ -3,17 +3,28 @@
   <component name="ChangeListManager">
     <list default="true" id="6fca0b83-aa09-450a-a784-3be5bfc5ae48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/handlers/ConnectorIdleStateTrigger.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/handlers/ConnectorIdleStateTrigger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/target/classes/handlers/ConnectorIdleStateTrigger.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/handlers/ConnectorIdleStateTrigger.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccommon/src/main/java/entity/HeartbeatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/src/main/java/entity/HeartbeatRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccommon/src/main/java/enumeration/PackageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/src/main/java/enumeration/PackageType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccommon/target/classes/entity/HeartbeatRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/target/classes/entity/HeartbeatRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccommon/target/classes/enumeration/PackageType.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/target/classes/enumeration/PackageType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccore/src/main/java/codec/CommonDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/src/main/java/codec/CommonDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccore/src/main/java/codec/CommonEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/src/main/java/codec/CommonEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccore/target/classes/codec/CommonDecoder.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/target/classes/codec/CommonDecoder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpccore/target/classes/codec/CommonEncoder.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/target/classes/codec/CommonEncoder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/servers/handlers/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/servers/handlers/NettyServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/nettyClient/NettyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/nettyClient/NettyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/proxy/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/proxy/RpcClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/target/classes/nettyClient/NettyClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/nettyClient/NettyClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/target/classes/proxy/RpcClientProxy.class" beforeDir="false" afterPath="$PROJECT_DIR$/client/target/classes/proxy/RpcClientProxy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccommon/src/main/java/annotation/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/src/main/java/annotation/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RpcError.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RpcError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccommon/target/classes/annotation/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/target/classes/annotation/Service.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccommon/target/classes/enumeration/RpcError.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccommon/target/classes/enumeration/RpcError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccommon/target/test-classes/META-INF/rpccommon.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccore/src/main/java/registry/NacosServiceRegistryCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/src/main/java/registry/NacosServiceRegistryCenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccore/src/main/java/serializer/KryoSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/src/main/java/serializer/KryoSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccore/target/classes/registry/NacosServiceRegistryCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/target/classes/registry/NacosServiceRegistryCenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpccore/target/classes/serializer/KryoSerializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpccore/target/classes/serializer/KryoSerializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/impl/HelloServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/impl/HelloServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/servers/nettyServer/NettyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/servers/nettyServer/NettyServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/NettyServerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/NettyServerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/META-INF/server.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/impl/HelloServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/impl/HelloServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/servers/nettyServer/NettyServer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/servers/nettyServer/NettyServer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/servers/nettyServer/NettyServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/servers/nettyServer/NettyServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/test-classes/NettyServerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/test-classes/NettyServerTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/rpcparent/target/" />
@@ -51,45 +62,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/codec/CommonDecoder.java">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/impl/HelloServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="51" column="67" selection-start-line="51" selection-start-column="67" selection-end-line="51" selection-end-column="67" />
+            <state relative-caret-position="140">
+              <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/codec/CommonEncoder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="28" column="29" lean-forward="true" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/nettyServer/NettyServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="85" column="59" selection-start-line="85" selection-start-column="59" selection-end-line="85" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/handlers/NettyServerHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="44" column="17" lean-forward="true" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#733#734#0" expanded="true" />
-                <element signature="e#787#788#0" expanded="true" />
-              </folding>
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="285">
+                <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -120,42 +108,26 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/rpccommon/src/main/java/entity/RpcResponse.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/results/UnProcessedResponse.java" />
-        <option value="$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RegistryCode.java" />
-        <option value="$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/RpcServer.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/nettyClient/NettyClientHandler.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/servers/handlers/RequestHandler.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/impl/HelloServiceImpl.java" />
-        <option value="$PROJECT_DIR$/rpccore/src/main/java/serializer/CommonSerializer.java" />
         <option value="$PROJECT_DIR$/rpccore/src/main/java/registry/ServiceRegistry.java" />
         <option value="$PROJECT_DIR$/rpccore/src/main/java/registry/MultiImplServiceRegistry.java" />
         <option value="$PROJECT_DIR$/rpccore/src/main/java/registry/DefaultServiceRegistry.java" />
         <option value="$PROJECT_DIR$/rpcapi/src/main/java/api/AbstractService.java" />
         <option value="$PROJECT_DIR$/rpcapi/src/main/java/api/HelloService.java" />
-        <option value="$PROJECT_DIR$/server/src/test/java/NettyServerTest.java" />
         <option value="$PROJECT_DIR$/rpccore/src/main/java/registry/GroupServiceRegistry.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/handlers/ChannelProvider.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/EasyClient/EasyRpcClient.java" />
         <option value="$PROJECT_DIR$/client/src/test/java/EasyClientTest.java" />
-        <option value="$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RpcError.java" />
         <option value="$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/RpcClient.java" />
         <option value="$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/AbstractRpcClient.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/stubs/ClientStub.java" />
-        <option value="$PROJECT_DIR$/rpccore/src/main/java/registry/NacosServiceRegistryCenter.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/server/src/main/java/servers/handlers/HeartBertInitializer.java" />
         <option value="$PROJECT_DIR$/rpccommon/src/main/java/idle/ChannelHandlerHolder.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/servers/nettyServer/ConnectionWatchdog.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/idle/ConnectionWatchdog.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/servers/handlers/HeartBeatHandler.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/handlers/HeartBeatClientHandler.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/nettyClient/NettyClient.java" />
         <option value="$PROJECT_DIR$/rpccommon/src/main/java/entity/Request.java" />
-        <option value="$PROJECT_DIR$/rpccommon/src/main/java/entity/RpcRequest.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/proxy/RpcClientProxy.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/servers/handlers/HeartBeatServerHandler.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/servers/nettyServer/NettyServer.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/handlers/NettyClientHandler.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/servers/handlers/AcceptorIdleStateTrigger.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/servers/nettyServer/HeartBeatServer.java" />
@@ -167,10 +139,26 @@
         <option value="$PROJECT_DIR$/rpccore/src/main/java/codec/CommonEncoder.java" />
         <option value="$PROJECT_DIR$/rpccommon/src/test/java/serializeTest.java" />
         <option value="$PROJECT_DIR$/rpccore/src/test/java/SerializeTest.java" />
-        <option value="$PROJECT_DIR$/rpccommon/src/main/java/entity/HeartbeatRequest.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/handlers/ConnectorIdleStateTrigger.java" />
         <option value="$PROJECT_DIR$/rpccore/src/main/java/codec/CommonDecoder.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/servers/handlers/NettyServerHandler.java" />
+        <option value="$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RpcError.java" />
+        <option value="$PROJECT_DIR$/rpccore/src/main/java/serializer/KryoSerializer.java" />
+        <option value="$PROJECT_DIR$/rpccommon/src/main/java/entity/HeartbeatRequest.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/proxy/RpcClientProxy.java" />
+        <option value="$PROJECT_DIR$/rpccore/src/main/java/annotation/ReflectUtil.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/nettyClient/NettyClient.java" />
+        <option value="$PROJECT_DIR$/rpccommon/src/main/java/entity/RpcRequest.java" />
+        <option value="$PROJECT_DIR$/server/src/test/java/NettyServerTest.java" />
+        <option value="$PROJECT_DIR$/rpccommon/src/main/java/annotation/ReflectUtil.java" />
+        <option value="$PROJECT_DIR$/rpccommon/src/main/java/annotation/Service.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/servers/nettyServer/NettyServer.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/servers/starters/NettyServerStarter.java" />
+        <option value="$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/AbstractRpcServer.java" />
+        <option value="$PROJECT_DIR$/rpccore/src/main/java/registry/NacosServiceRegistryCenter.java" />
+        <option value="$PROJECT_DIR$/client/src/main/java/starter/NettyClientStarter.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/impl/HelloServiceImpl.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -187,11 +175,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="313" />
-    <option name="y" value="44" />
-    <option name="width" value="1158" />
-    <option name="height" value="777" />
+    <option name="y" value="23" />
+    <option name="width" value="1106" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -201,7 +189,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -209,11 +197,72 @@
               <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rpcProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rpcProject" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -251,39 +300,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.NettyClient">
-    <configuration name="HeartBeatClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="nettyClient.HeartBeatClient" />
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="nettyClient.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="HeartBeatServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="servers.nettyServer.HeartBeatServer" />
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="idle.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.NettyServerStarter">
     <configuration name="NettyClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="nettyClient.NettyClient" />
       <module name="client" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="nettyClient.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NettyClientStarter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="starter.NettyClientStarter" />
+      <module name="client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="starter.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -304,11 +340,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SerializeTest.serializeTest1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="rpccore" />
+    <configuration name="NettyServerStarter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="servers.starters.NettyServerStarter" />
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="servers.starters.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NettyServerTest.nettyServerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="SerializeTest" />
-      <option name="METHOD_NAME" value="serializeTest1" />
+      <option name="MAIN_CLASS_NAME" value="NettyServerTest" />
+      <option name="METHOD_NAME" value="nettyServerTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -316,11 +365,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NettyServer" />
+        <item itemvalue="Application.NettyClientStarter" />
+        <item itemvalue="Application.NettyServerStarter" />
+        <item itemvalue="JUnit.NettyServerTest.nettyServerTest" />
         <item itemvalue="Application.NettyClient" />
-        <item itemvalue="JUnit.SerializeTest.serializeTest1" />
-        <item itemvalue="Application.HeartBeatClient" />
-        <item itemvalue="Application.HeartBeatServer" />
+        <item itemvalue="Application.NettyServer" />
       </list>
     </recent_temporary>
   </component>
@@ -362,16 +411,15 @@
       <workItem from="1599460026897" duration="12450000" />
       <workItem from="1599546382613" duration="592000" />
       <workItem from="1599550924986" duration="11756000" />
+      <workItem from="1599618223304" duration="909000" />
+      <workItem from="1599620814316" duration="404000" />
+      <workItem from="1599631310052" duration="294000" />
+      <workItem from="1599632415096" duration="495000" />
+      <workItem from="1599635847008" duration="9354000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="NettyClientTest_nettyClientTest - 2020.09.07 at 15h 38m 22s.xml">
-      <configuration name="NettyClientTest.nettyClientTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="NettyClientTest_nettyClientTest - 2020.09.07 at 15h 39m 03s.xml">
-      <configuration name="NettyClientTest.nettyClientTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="NettyClientTest_nettyClientTest - 2020.09.07 at 15h 39m 20s.xml">
       <configuration name="NettyClientTest.nettyClientTest" configurationId="JUnit" />
     </history-entry>
@@ -396,9 +444,15 @@
     <history-entry file="SerializeTest_serializeTest1 - 2020.09.08 at 22h 29m 42s.xml">
       <configuration name="SerializeTest.serializeTest1" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="NettyServerTest_nettyServerTest - 2020.09.09 at 19h 48m 57s.xml">
+      <configuration name="NettyServerTest.nettyServerTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="NettyServerTest_nettyServerTest - 2020.09.09 at 19h 49m 30s.xml">
+      <configuration name="NettyServerTest.nettyServerTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148045000" />
+    <option name="totallyTimeSpent" value="159501000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -411,11 +465,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="UI Designer" order="0" />
       <window_info id="Favorites" order="1" sideWeight="0.5049261" side_tool="true" weight="0.25189108" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="3" sideWeight="0.49507388" visible="true" weight="0.25189108" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" sideWeight="0.49507388" visible="true" weight="0.24962178" />
       <window_info id="Structure" order="4" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -425,7 +480,7 @@
       <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.32786885" />
-      <window_info anchor="bottom" id="Run" order="8" weight="0.33442622" />
+      <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.27704918" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.39836067" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
@@ -444,163 +499,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/EasyClient/EasyRpcClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1232">
-          <caret line="58" column="4" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/test/java/EasyClientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-96">
-          <caret line="28" column="41" lean-forward="true" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RpcError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/AbstractRpcClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#319#320#0" expanded="true" />
-            <element signature="e#356#357#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#465#466#0" expanded="true" />
-            <element signature="e#503#504#0" expanded="true" />
-            <element signature="e#540#541#0" expanded="true" />
-            <element signature="e#597#598#0" expanded="true" />
-            <element signature="e#649#650#0" expanded="true" />
-            <element signature="e#688#689#0" expanded="true" />
-            <element signature="e#726#727#0" expanded="true" />
-            <element signature="e#785#786#0" expanded="true" />
-            <element signature="e#839#840#0" expanded="true" />
-            <element signature="e#878#879#0" expanded="true" />
-            <element signature="e#916#917#0" expanded="true" />
-            <element signature="e#975#976#0" expanded="true" />
-            <element signature="e#1029#1030#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/stubs/ClientStub.java" />
-    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/registry/ServiceRegistryCenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/registry/NacosServiceRegistryCenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-728">
-          <caret line="42" column="69" selection-start-line="42" selection-start-column="69" selection-end-line="42" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-42">
-            <caret line="23" column="23" lean-forward="true" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/handlers/HeartBeatInitializer.java" />
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.5/lib/src.zip!/java.base/java/lang/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="111" column="16" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-11.0.5/lib/src.zip!/java.base/java/util/HashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3232">
-          <caret line="137" column="13" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/idle/ChannelHandlerHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/ChannelPipeline.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/DefaultChannelPipeline.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/AbstractChannel.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="92" column="19" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
-          <folding>
-            <element signature="e#4171#4172#0" expanded="true" />
-            <element signature="e#4207#4208#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/Channel.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/ChannelInboundHandlerAdapter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="91" lean-forward="true" selection-start-line="7" selection-start-column="91" selection-end-line="7" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/ChannelInboundHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="56" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/ChannelHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/handlers/ChatClientHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.10.Final/netty-all-4.1.10.Final.jar!/io/netty/channel/AbstractChannelHandlerContext.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -612,16 +510,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/test/java/NettyServerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="8" selection-end-line="15" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -639,16 +527,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/RpcClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/results/UnProcessedResponse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-31">
@@ -656,30 +534,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/handlers/HeartBeatClientHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="29" column="42" lean-forward="true" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/handlers/HeartBeatClientHandler.java" />
     <entry file="file://$PROJECT_DIR$/client/src/main/java/handlers/NettyClientHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/proxy/RpcClientProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="68" column="119" selection-start-line="68" selection-start-column="119" selection-end-line="68" selection-end-column="119" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -693,16 +552,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/handlers/HeartBeatServerHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/handlers/HeartBeatServerHandler.java" />
     <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/handlers/AcceptorIdleStateTrigger.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-198">
@@ -735,26 +585,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/nettyServer/HeartBeatServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/nettyClient/HeartBeatClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/nettyServer/HeartBeatServer.java" />
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/nettyClient/HeartBeatClient.java" />
     <entry file="file://$PROJECT_DIR$/client/src/test/java/NettyClientTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -783,65 +615,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/entity/RpcResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1540">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/test/java/serializeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/entity/HeartbeatRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-          <folding>
-            <element signature="e#349#350#0" expanded="true" />
-            <element signature="e#391#392#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/test/java/serializeTest.java" />
     <entry file="file://$PROJECT_DIR$/client/src/main/java/handlers/ConnectorIdleStateTrigger.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/entity/RpcRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-78">
-          <caret line="9" column="14" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/codec/CommonDecoder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="51" column="67" selection-start-line="51" selection-start-column="67" selection-end-line="51" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/nettyServer/NettyServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="85" column="59" selection-start-line="85" selection-start-column="59" selection-end-line="85" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -858,20 +636,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/main/java/nettyClient/NettyClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="142" column="25" lean-forward="true" selection-start-line="142" selection-start-column="25" selection-end-line="142" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/handlers/NettyServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="44" column="17" lean-forward="true" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+        <state relative-caret-position="896">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#733#734#0" expanded="true" />
@@ -882,8 +650,243 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/codec/CommonEncoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="28" column="29" lean-forward="true" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+        <state relative-caret-position="252">
+          <caret line="36" column="10" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/codec/CommonDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="51" column="67" selection-start-line="51" selection-start-column="67" selection-end-line="51" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RegistryCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/enumeration/ResponseCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/serializer/JsonSerializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/entity/RpcResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-448">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/exception/RpcException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/enumeration/RpcError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/serializer/KryoSerializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1120">
+          <caret line="51" column="62" selection-start-line="51" selection-start-column="62" selection-end-line="51" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/annotation/ServiceScan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/nettyClient/ChatClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/nettyClient/NettyClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="150" column="34" lean-forward="true" selection-start-line="150" selection-start-column="34" selection-end-line="150" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/entity/HeartbeatRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/entity/RpcRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/RpcServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/test/java/NettyServerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-35">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/annotation/ReflectUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="145" column="134" selection-start-line="145" selection-start-column="134" selection-end-line="145" selection-end-column="134" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1746#4435#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/registry/ServiceRegistry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/registry/GroupServiceRegistry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/annotation/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/registry/ServiceRegistryCenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/AbstractRpcServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="69" column="59" selection-start-line="69" selection-start-column="59" selection-end-line="69" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#start#0;class#AbstractRpcServer#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccommon/src/main/java/rpcInterfaces/RpcClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rpccore/src/main/java/registry/NacosServiceRegistryCenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="50" column="87" selection-start-line="50" selection-start-column="87" selection-end-line="50" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/proxy/RpcClientProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="71" column="26" lean-forward="true" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/main/java/starter/NettyClientStarter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="13" column="58" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/nettyServer/NettyServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/servers/starters/NettyServerStarter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/impl/HelloServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="285">
+            <caret line="32" column="2" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

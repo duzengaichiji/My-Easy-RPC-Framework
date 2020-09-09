@@ -3,6 +3,7 @@ package serializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import entity.HeartbeatRequest;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import enumeration.RpcError;
@@ -16,6 +17,8 @@ public class KryoSerializer implements CommonSerializer {
 
     private static final ThreadLocal<Kryo> kryoThreadLocal = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();
+        //应该自动扫描并注册entity
+        kryo.register(HeartbeatRequest.class);
         kryo.register(RpcResponse.class);
         kryo.register(RpcRequest.class);
         kryo.setReferences(true);
@@ -33,8 +36,7 @@ public class KryoSerializer implements CommonSerializer {
             return output.toBytes();
         } catch (Exception e) {
             //logger.error("序列化时有错误发生:", e);
-            //throw new SerializeException("序列化时有错误发生");
-            return null;
+            throw new RpcException(RpcError.SERIALIZE_FAIL);
         }
     }
 
@@ -47,7 +49,7 @@ public class KryoSerializer implements CommonSerializer {
             kryoThreadLocal.remove();
             return o;
         } catch (Exception e) {
-            return null;
+            throw new RpcException(RpcError.DESERIALIZE_FAIL);
         }
     }
 

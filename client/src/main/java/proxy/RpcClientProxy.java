@@ -72,6 +72,7 @@ public class RpcClientProxy implements InvocationHandler {
                     break;
                 }catch (Exception e){
                     retries+=1;
+                    //e.printStackTrace();
                     System.out.println("服务调用失败，第 "+retries+" 次重试");
                 }
             }

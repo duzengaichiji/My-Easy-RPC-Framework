@@ -48,6 +48,7 @@ public class NacosServiceRegistryCenter implements ServiceRegistryCenter {
     public InetSocketAddress lookupService(String serviceName) {
         try {
             List<Instance> instances = namingService.getAllInstances(serviceName);
+            if(instances.size()==0) throw new RpcException(RpcError.SERVICE_NOT_FOUND);
             System.out.println("service:"+serviceName+" has total "+instances.size()+" implements");
             //直接返回服务列表中的第一个，在这里可以配置负载均衡
             //用负载均衡算法得到其中一个服务提供者

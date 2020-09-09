@@ -141,13 +141,13 @@ public class NettyClient extends AbstractRpcClient {
     }
 
     public static void main(String[] args) {
-        RpcClient client = new NettyClient(SerializerCode.KRYO.getCode());
-        //setting service groups
-        client.setServiceGroup(HelloService.class,"group1");
-        RpcClientProxy rpcClientProxy = new RpcClientProxy(client);
-        HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
-        HelloObject object = new HelloObject(12,"netty message");
-        String res = helloService.hello(object);
-        System.out.println(res);
+//        RpcClient client = new NettyClient(SerializerCode.KRYO.getCode());
+//        //setting service groups
+//        client.setServiceGroup(HelloService.class,"group1");
+//        RpcClientProxy rpcClientProxy = new RpcClientProxy(client);
+//        HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
+//        HelloObject object = new HelloObject(12,"netty message");
+//        String res = helloService.hello(object);
+//        System.out.println(res);
     }
 }

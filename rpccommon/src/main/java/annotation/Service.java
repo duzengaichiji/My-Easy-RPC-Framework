@@ -10,4 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Service {
     public String name() default "";
+    public String group() default "default";
 }

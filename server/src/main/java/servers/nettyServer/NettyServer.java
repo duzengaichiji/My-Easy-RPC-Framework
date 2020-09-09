@@ -18,6 +18,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import registry.*;
+import rpcInterfaces.AbstractRpcServer;
 import rpcInterfaces.RpcServer;
 import serializer.CommonSerializer;
 import servers.handlers.AcceptorIdleStateTrigger;
@@ -27,7 +28,7 @@ import util.ShutdownHook;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
-public class NettyServer implements RpcServer {
+public class NettyServer extends AbstractRpcServer {
 
     private String host;//远程注册中心的地址
     private int port;//提供服务的端口
@@ -42,6 +43,8 @@ public class NettyServer implements RpcServer {
         this.serviceRegistryCenter = new NacosServiceRegistryCenter();
         this.serviceRegistry = ServiceRegistry.getByCode(registry);
         this.serializer = CommonSerializer.getByCode(serializer);
+        //自动扫描并注册服务
+        scanServices();
     }
 
     public NettyServer(String host, int port, CommonSerializer serializer, ServiceRegistry serviceRegistry, ServiceRegistryCenter serviceRegistryCenter) {
@@ -50,6 +53,7 @@ public class NettyServer implements RpcServer {
         this.serializer = serializer;
         this.serviceRegistry = serviceRegistry;
         this.serviceRegistryCenter = serviceRegistryCenter;
+        scanServices();
     }
 
     @Override
