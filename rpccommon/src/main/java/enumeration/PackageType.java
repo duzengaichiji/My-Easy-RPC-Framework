@@ -9,7 +9,7 @@ public enum  PackageType {
         this.code = code;
     }
 
-    private int code;
+    private final int code;
 
     public int getCode() {
         return code;

@@ -7,7 +7,7 @@ public enum SerializerCode {
     HESSIAN(2),
     PROTOBUF(3);
 
-    private int code;
+    private final int code;
 
     SerializerCode(int code) {
         this.code = code;
@@ -17,7 +17,4 @@ public enum SerializerCode {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
 }

@@ -7,8 +7,8 @@ public enum ResponseCode{
     METHOD_NOT_FOUND(501,"未找到指定方法"),
     CLASS_NOT_FOUND(502,"未找到指定类");
 
-    private int code;
-    private String message;
+    private final int code;
+    private final String message;
 
     ResponseCode(int code, String message) {
         this.code = code;

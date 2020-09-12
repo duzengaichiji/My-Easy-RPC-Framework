@@ -30,6 +30,15 @@ public class RpcRequest implements Serializable,Request {
         if(groupId.length!=0) this.groupId = groupId[0];
     }
 
+    public RpcRequest(String requestId, String interfactName, String methodName, Object[] parameters, Class<?>[] paramTypes, String groupId) {
+        this.requestId = requestId;
+        this.interfactName = interfactName;
+        this.methodName = methodName;
+        this.parameters = parameters;
+        this.paramTypes = paramTypes;
+        this.groupId = groupId;
+    }
+
     public RpcRequest(String interfactName, String methodName, Object[] parameters, Class<?>[] paramTypes) {
         this.interfactName = interfactName;
         this.methodName = methodName;

@@ -8,19 +8,19 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rpccommon" />
         <module name="rpcparent" />
+        <module name="rpcserver" />
         <module name="rpccore" />
-        <module name="server" />
+        <module name="rpcclient" />
         <module name="rpcapi" />
-        <module name="client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
-      <module name="client" target="8" />
       <module name="rpcapi" target="1.5" />
+      <module name="rpcclient" target="8" />
       <module name="rpccommon" target="8" />
       <module name="rpccore" target="8" />
       <module name="rpcparent" target="1.5" />
-      <module name="server" target="8" />
+      <module name="rpcserver" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
