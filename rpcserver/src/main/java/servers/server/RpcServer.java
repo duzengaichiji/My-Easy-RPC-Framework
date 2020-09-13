@@ -1,4 +1,4 @@
-package rpcInterfaces;
+package servers.server;
 
 public interface RpcServer {
     void start();

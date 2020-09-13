@@ -6,7 +6,7 @@ import io.netty.channel.Channel;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
-import rpcInterfaces.RpcClient;
+import client.RpcClient;
 
 import java.lang.reflect.Method;
 

@@ -2,18 +2,13 @@ package proxy;
 
 import entity.RpcRequest;
 import enumeration.InvokerCode;
-import enumeration.RpcError;
 import invoker.Invoker;
 import javassist.*;
 import javassist.bytecode.AccessFlag;
 import nettyClient.NettyClient;
-import rpcInterfaces.RpcClient;
+import client.RpcClient;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
-import java.util.UUID;
 
 //用javassist实现动态代理
 @Deprecated

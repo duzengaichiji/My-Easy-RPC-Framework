@@ -4,6 +4,7 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import enumeration.LoadBalancerCode;
 import enumeration.RpcError;
 import exception.RpcException;
 import loadbalancer.LoadBalancer;
@@ -17,18 +18,24 @@ import java.util.Set;
 
 public class NacosServiceRegistryCenter implements ServiceRegistryCenter {
     //注册中心的地址
-    private static final String SERVER_ADDR = "192.168.137.1:8848";
+    private final String SERVER_ADDR;
     //NamingService用于查找服务
     private static NamingService namingService;
     //记录所有注册了的服务的名字
-    private Set<String> serviceNames = new HashSet<>();
+    private Set<String> serviceNames;
     //负载均衡器
-    private LoadBalancer loadBalancer = new RandomLoadBalancer();
+    private final LoadBalancer loadBalancer;
 
-    static {
+
+    public NacosServiceRegistryCenter(String address,Integer... lb) {
+        SERVER_ADDR = address;
+        Integer lbc = LoadBalancerCode.RANDOMLOADBALANCER.getCode();
+        if(lb.length!=0) lbc = lb[0];
+        loadBalancer = LoadBalancer.getByCode(lbc);
+        serviceNames = new HashSet<>();
         try {
             namingService = NamingFactory.createNamingService(SERVER_ADDR);
-        }catch (NacosException e){
+        } catch (NacosException e) {
             e.printStackTrace();
         }
     }

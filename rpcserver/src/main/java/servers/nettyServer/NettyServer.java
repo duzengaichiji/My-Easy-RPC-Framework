@@ -1,29 +1,20 @@
 package servers.nettyServer;
 
-import annotation.Service;
-import api.HelloService;
 import codec.CommonDecoder;
 import codec.CommonEncoder;
-import enumeration.RegistryCode;
-import enumeration.SerializerCode;
-import impl.HelloServiceImpl;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import registry.*;
-import rpcInterfaces.AbstractRpcServer;
-import rpcInterfaces.RpcServer;
+import servers.server.AbstractRpcServer;
 import serializer.CommonSerializer;
 import servers.handlers.AcceptorIdleStateTrigger;
 import servers.handlers.NettyServerHandler;
-import util.ShutdownHook;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
@@ -37,22 +28,13 @@ public class NettyServer extends AbstractRpcServer {
     private ServiceRegistryCenter serviceRegistryCenter;//远程服务注册中心
     private final AcceptorIdleStateTrigger acceptorIdleStateTrigger = new AcceptorIdleStateTrigger();//通道状态检测器
 
-    public NettyServer(String host,int port,Integer serializer,Integer registry){
+    public NettyServer(String host,int port,Integer serializer,Integer registry,String registryAddress,Integer loadBalancer){
         this.host = host;
         this.port = port;
-        this.serviceRegistryCenter = new NacosServiceRegistryCenter();
+        this.serviceRegistryCenter = new NacosServiceRegistryCenter(registryAddress,loadBalancer);
         this.serviceRegistry = ServiceRegistry.getByCode(registry);
         this.serializer = CommonSerializer.getByCode(serializer);
         //自动扫描并注册服务
-        scanServices();
-    }
-
-    public NettyServer(String host, int port, CommonSerializer serializer, ServiceRegistry serviceRegistry, ServiceRegistryCenter serviceRegistryCenter) {
-        this.host = host;
-        this.port = port;
-        this.serializer = serializer;
-        this.serviceRegistry = serviceRegistry;
-        this.serviceRegistryCenter = serviceRegistryCenter;
         scanServices();
     }
 
@@ -96,7 +78,7 @@ public class NettyServer extends AbstractRpcServer {
             System.out.println("...binding port:"+port+" server start...");
             //添加服务注销的钩子
             //ShutdownHook.getShutdownHook().addClearAllHook(serviceRegistryCenter);
-            //关闭通道
+            //监听通道
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             System.out.println("启动服务器时有错误发生: "+e);
@@ -116,11 +98,4 @@ public class NettyServer extends AbstractRpcServer {
                 new InetSocketAddress(host,port));
     }
 
-    public static void main(String[] args) {
-        HelloService helloService = new HelloServiceImpl();
-
-        NettyServer server = new NettyServer("127.0.0.1",9000, SerializerCode.KRYO.getCode(), RegistryCode.GroupImpl.getCode());
-        server.publishService(helloService,HelloService.class,"group1");
-        server.start();
-    }
 }

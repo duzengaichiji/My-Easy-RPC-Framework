@@ -2,9 +2,7 @@ package invoker;
 
 import entity.RpcRequest;
 import io.netty.channel.Channel;
-import rpcInterfaces.RpcClient;
-
-import java.lang.reflect.Method;
+import client.RpcClient;
 
 public class CallbackInvoker implements Invoker{
     private RpcClient rpcClient;

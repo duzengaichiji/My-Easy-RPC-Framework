@@ -1,10 +1,4 @@
-import enumeration.SerializerCode;
-import proxy.JDKProxy;
-import api.HelloObject;
-import api.HelloService;
-import nettyClient.NettyClient;
 import org.junit.Test;
-import rpcInterfaces.RpcClient;
 
 public class NettyClientTest {
     @Test

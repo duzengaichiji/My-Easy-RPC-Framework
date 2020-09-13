@@ -4,10 +4,11 @@ import entity.RpcRequest;
 import enumeration.InvokerCode;
 import enumeration.RpcError;
 import exception.RpcException;
+import handlers.*;
 import invoker.*;
 import io.netty.channel.Channel;
 import nettyClient.NettyClient;
-import rpcInterfaces.RpcClient;
+import client.RpcClient;
 
 import java.lang.reflect.Method;
 import java.util.UUID;
@@ -18,21 +19,27 @@ public abstract class AbstractProxy {
     private RpcClient client;
     //根据不同场合，选取不同的invoker类型
     private Invoker invoker;
+    private CommonClientHandler commonClientHandler;
 
     public AbstractProxy(RpcClient client, InvokerCode invoker) {
         this.client = client;
         switch (invoker){
+            //暂时将invoker和对应的handler绑定
             case SYNC_INVOKER:
                 this.invoker = new SyncInvoker(client);
+                this.commonClientHandler = new SyncClientHandler();
                 break;
             case FUTURE_INVOKER:
                 this.invoker = new FutureInvoker(client);
+                this.commonClientHandler = new FutureClientHandler();
                 break;
             case ONEWAY_INVOKER:
                 this.invoker = new OnewayInvoker(client);
+                this.commonClientHandler = new OneWayClientHandler();
                 break;
             case CALLBACK_INVOKER:
                 this.invoker = new CallbackInvoker(client);
+                this.commonClientHandler = new CallbackClientHandler();
                 break;
             default:
                 throw new RpcException(RpcError.NO_SUCH_INVOKER);
@@ -78,7 +85,7 @@ public abstract class AbstractProxy {
         Channel channel = null;
         //5次机会尝试连接服务端
         while (channel == null && retries <= ((NettyClient) client).getConnectRetries()) {
-            channel = client.getChannel(rpcRequest);
+            channel = client.getChannel(rpcRequest,commonClientHandler);
             retries += 1;
             System.out.println("尝试连接第 " + retries + " 次");
             if (retries > 1) TimeUnit.SECONDS.sleep(((NettyClient) client).getConnectWaitTime());

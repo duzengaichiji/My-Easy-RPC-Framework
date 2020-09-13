@@ -1,6 +1,7 @@
 package loadbalancer;
 
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import enumeration.LoadBalancerCode;
 
 import java.util.List;
 
@@ -14,5 +15,10 @@ public class RoundRobinLoadBalancer implements  LoadBalancer {
             index%=instanceList.size();
         }
         return instanceList.get(index++);
+    }
+
+    @Override
+    public int getCode() {
+        return LoadBalancerCode.ROUNDROBINLOADBALANDER.getCode();
     }
 }

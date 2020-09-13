@@ -2,8 +2,9 @@ package nettyClient;
 
 import codec.CommonDecoder;
 import codec.CommonEncoder;
+import handlers.CommonClientHandler;
 import handlers.ConnectorIdleStateTrigger;
-import handlers.NettyClientHandler;
+import handlers.FutureClientHandler;
 import idle.ConnectionWatchdog;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -34,7 +35,7 @@ public class ChannelProvider {
     private static final HashedWheelTimer timer = new HashedWheelTimer();
 
     //建立到服务端的连接
-    public static Channel get(InetSocketAddress inetSocketAddress, CommonSerializer commonSerializer){
+    public static Channel get(InetSocketAddress inetSocketAddress, CommonSerializer commonSerializer,CommonClientHandler clientHandler){
         String key = inetSocketAddress.toString()+commonSerializer.getCode();
         if (channelMap.containsKey(key)) {
             Channel channel = channelMap.get(key);
@@ -54,7 +55,7 @@ public class ChannelProvider {
                         idleStateTrigger,
                         new CommonDecoder(),
                         new CommonEncoder(commonSerializer),
-                        new NettyClientHandler()
+                        clientHandler
                 };
             }
         };

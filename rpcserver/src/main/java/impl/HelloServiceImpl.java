@@ -3,6 +3,8 @@ package impl;
 import annotation.Service;
 import api.HelloObject;
 import api.HelloService;
+import entity.RpcResponse;
+import futureTask.UnCompletedFuture;
 
 import java.lang.reflect.Method;
 
@@ -10,7 +12,7 @@ import java.lang.reflect.Method;
 @Service
 public class HelloServiceImpl implements HelloService {
     //private static final Logger logger = LoggerFactory.getLogger(HelloServiceImpl.class);
-    public String hello(HelloObject object) {
+    public Object hello(HelloObject object) {
         //logger.debug("接收到:{}",object.getMessage());
         System.out.println("接收到:{}"+object.getMessage());
         return "this is the return value,id=" + object.getId();

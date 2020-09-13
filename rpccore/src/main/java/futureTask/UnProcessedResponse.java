@@ -1,11 +1,11 @@
-package results;
+package futureTask;
 
 import entity.RpcResponse;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
-//半成品的RpcResponse
+//存放半成品的RpcResponse
 public class UnProcessedResponse {
     private static ConcurrentHashMap<String, CompletableFuture<RpcResponse>> unprocessedFutures = new ConcurrentHashMap<>();
 

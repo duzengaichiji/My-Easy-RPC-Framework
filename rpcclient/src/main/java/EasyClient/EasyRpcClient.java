@@ -1,7 +1,6 @@
 package EasyClient;
 
 import entity.RpcRequest;
-import rpcInterfaces.RpcClient;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

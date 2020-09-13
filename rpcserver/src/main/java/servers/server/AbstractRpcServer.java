@@ -1,4 +1,4 @@
-package rpcInterfaces;
+package servers.server;
 
 import annotation.ReflectUtil;
 import annotation.Service;

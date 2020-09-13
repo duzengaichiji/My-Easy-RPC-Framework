@@ -1,6 +1,7 @@
-package rpcInterfaces;
+package client;
 
 import entity.RpcRequest;
+import handlers.CommonClientHandler;
 import io.netty.channel.Channel;
 
 public class AbstractRpcClient implements RpcClient{
@@ -42,7 +43,7 @@ public class AbstractRpcClient implements RpcClient{
     }
 
     @Override
-    public Channel getChannel(RpcRequest request) {
+    public Channel getChannel(RpcRequest request, CommonClientHandler clienthandler) {
         return null;
     }
 
