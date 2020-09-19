@@ -8,6 +8,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.apache.log4j.Logger;
 import registry.NacosServiceRegistryCenter;
 import registry.ServiceRegistryCenter;
 import client.AbstractRpcClient;
@@ -18,7 +19,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class NettyClient extends AbstractRpcClient {
-
+    private static Logger logger = Logger.getLogger(NettyClient.class.getClass());
     private final static Bootstrap bootstrap;
     private final static EventLoopGroup group;
     //用来映射每个服务对应的分组，因为一个服务可能有多种实现
@@ -75,7 +76,7 @@ public class NettyClient extends AbstractRpcClient {
     @Override
     public Channel getChannel(RpcRequest request, CommonClientHandler clienthandler) {
         if(serializer==null){
-            System.out.println("未设置序列化器");
+            logger.error("未设置序列化器");
             throw new RpcException(RpcError.SERIALIZER_NOT_FOUND);
         }
 
@@ -88,13 +89,13 @@ public class NettyClient extends AbstractRpcClient {
             //缓存
             ChannelProvider.putServiceAddress(serviceSign,inetSocketAddress);
         }else {
-            System.out.println("the service is found in cache");
+            logger.info("the service is found in cache");
         }
         //ChannelProvider
         Channel channel = ChannelProvider.get(inetSocketAddress,serializer,clienthandler);
         if(!channel.isActive()){
             group.shutdownGracefully();
-            System.out.println("服务端通道未打开");
+            logger.error("服务端通道未打开");
             return null;
         }
         return channel;

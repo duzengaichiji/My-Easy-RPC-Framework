@@ -10,11 +10,12 @@ import nettyClient.NettyClient;
 import futureTask.UnCompletedFuture;
 import futureTask.UnProcessedResponse;
 import client.RpcClient;
+import org.apache.log4j.Logger;
 
 import java.util.concurrent.CompletableFuture;
 
 public class FutureInvoker implements Invoker{
-
+    private static Logger logger = Logger.getLogger(FutureInvoker.class.getClass());
     private RpcClient rpcClient;
     private UnProcessedResponse unProcessedResponse;
 
@@ -32,13 +33,14 @@ public class FutureInvoker implements Invoker{
             unProcessedResponse.put(rpcRequest.getRequestId(),resultFuture);
             channel.writeAndFlush(rpcRequest).addListener(future1->{
                 if(future1.isSuccess()){
-                    System.out.println("客户端发送消息:"+ rpcRequest.toString());
+                    logger.info("客户端发送消息:"+ rpcRequest.toString());
                 }else{
                     resultFuture.completeExceptionally(future1.cause());
-                    System.out.println("发送消息时有错误:"+future1.cause());
+                    logger.error("发送消息时有错误:"+future1.cause());
                 }
             });
         }catch (Exception e){
+            logger.error("发送失败");
             Thread.currentThread().interrupt();
             throw new RpcException(RpcError.UNKNOWN_ERROR);
         }
@@ -58,7 +60,7 @@ public class FutureInvoker implements Invoker{
             } catch (Exception e) {
                 retries += 1;
                 //e.printStackTrace();
-                System.out.println("服务调用失败，第 " + retries + " 次重试");
+                logger.warn("服务调用失败，第 " + retries + " 次重试");
             }
         }
         return new UnCompletedFuture<RpcResponse>(completableFuture,((NettyClient) rpcClient).getExecuteWaitTime());

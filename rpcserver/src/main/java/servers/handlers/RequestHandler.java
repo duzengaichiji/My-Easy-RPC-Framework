@@ -3,19 +3,21 @@ package servers.handlers;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import enumeration.ResponseCode;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class RequestHandler {
+    private static Logger logger = Logger.getLogger(RequestHandler.class.getClass());
     public Object handler(RpcRequest rpcRequest,Object service){
         Object result = null;
         try{
             result = invokeTargetMethod(rpcRequest,service);
-            System.out.println("服务:"+rpcRequest.getInterfactName()
+            logger.info("服务:"+rpcRequest.getInterfactName()
             +" 成功调用方法："+rpcRequest.getMethodName());
         }catch (IllegalAccessException|InvocationTargetException e){
-            System.out.println("调用时错误"+e);
+            logger.error("调用时错误"+e);
         }
         return result;
     }
@@ -30,6 +32,7 @@ public class RequestHandler {
             );
         }catch (NoSuchMethodException e){
             //没有找到对应实现，调用失败
+            logger.error("方法调用失败:"+e);
             return RpcResponse.fail(ResponseCode.METHOD_NOT_FOUND);
         }
         return method.invoke(service,request.getParameters());

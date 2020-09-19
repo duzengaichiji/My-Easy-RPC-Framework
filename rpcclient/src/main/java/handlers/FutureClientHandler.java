@@ -7,10 +7,11 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import futureTask.UnProcessedResponse;
+import org.apache.log4j.Logger;
 
 @ChannelHandler.Sharable
 public class FutureClientHandler extends SimpleChannelInboundHandler<RpcResponse> implements CommonClientHandler{
-
+    private static Logger logger = Logger.getLogger(FutureClientHandler.class.getClass());
     private UnProcessedResponse unProcessedResponse;
 
     public FutureClientHandler() {
@@ -21,7 +22,7 @@ public class FutureClientHandler extends SimpleChannelInboundHandler<RpcResponse
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcResponse rpcResponse) throws Exception {
         try {
-            System.out.println("客户端收到信息"+rpcResponse);
+            logger.info("客户端收到信息"+rpcResponse);
             unProcessedResponse.complete(rpcResponse);
         }finally {
             //
@@ -30,7 +31,7 @@ public class FutureClientHandler extends SimpleChannelInboundHandler<RpcResponse
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        System.out.println("过程调用时有错误发生:");
+        logger.error("过程调用时有错误发生:");
         cause.printStackTrace();
         ctx.close();
     }

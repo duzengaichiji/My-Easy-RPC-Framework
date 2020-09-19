@@ -5,10 +5,12 @@ import annotation.Service;
 import annotation.ServiceScan;
 import enumeration.RpcError;
 import exception.RpcException;
+import org.apache.log4j.Logger;
 
 import java.util.Set;
 
 public class AbstractRpcServer  implements RpcServer{
+    private static Logger logger = Logger.getLogger(AbstractRpcServer.class.getClass());
     @Override
     public void start() {
 
@@ -27,11 +29,11 @@ public class AbstractRpcServer  implements RpcServer{
             //反射获取启动类的class对象，判断启动类是否加入serviceScan注解
             startClass = Class.forName(mainClassName);
             if(!startClass.isAnnotationPresent(ServiceScan.class)) {
-                //logger.error("启动类缺少 @ServiceScan 注解");
+                logger.error("启动类缺少 @ServiceScan 注解");
                 throw new RpcException(RpcError.SERVICE_SCAN_PACKAGE_NOT_FOUND);
             }
         } catch (ClassNotFoundException e) {
-            //logger.error("出现未知错误");
+            logger.error("出现未知错误");
             throw new RpcException(RpcError.UNKNOWN_ERROR);
         }
         //获取注解的参数
@@ -43,7 +45,7 @@ public class AbstractRpcServer  implements RpcServer{
             basePackage = "";
         }
         Set<Class<?>> classSet = ReflectUtil.getClasses(basePackage);
-        System.out.println("there are total "+classSet.size()+" classes");
+        logger.info("there are total "+classSet.size()+" classes");
         for(Class<?> clazz : classSet) {
             //如果扫描的类包含了 Service 注解
             if(clazz.isAnnotationPresent(Service.class)) {
@@ -54,8 +56,7 @@ public class AbstractRpcServer  implements RpcServer{
                 try {
                     obj = clazz.newInstance();
                 } catch (InstantiationException | IllegalAccessException e) {
-                    //logger.error("创建 " + clazz + " 时有错误发生");
-                    System.out.println("创建 " + clazz + " 时有错误发生");
+                    logger.error("创建 " + clazz + " 时有错误发生");
                     continue;
                 }
 //                if("".equals(serviceName)) {

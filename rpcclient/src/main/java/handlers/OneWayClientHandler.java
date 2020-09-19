@@ -4,16 +4,19 @@ import entity.RpcResponse;
 import enumeration.ClientHandlerCode;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.AttributeKey;
+import org.apache.log4j.Logger;
 
 public class OneWayClientHandler extends SimpleChannelInboundHandler<RpcResponse> implements CommonClientHandler{
+    private static Logger logger = Logger.getLogger(OneWayClientHandler.class.getClass());
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcResponse rpcResponse) throws Exception {
-
+        logger.info("客户端收到信息"+rpcResponse);
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        System.out.println("过程调用时有错误发生:");
+        logger.error("过程调用时有错误发生:");
         cause.printStackTrace();
         ctx.close();
     }

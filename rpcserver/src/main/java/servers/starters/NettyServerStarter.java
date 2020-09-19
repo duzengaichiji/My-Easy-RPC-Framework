@@ -14,7 +14,7 @@ public class NettyServerStarter {
         HelloService helloService = new HelloServiceImpl();
 
         NettyServer server = new NettyServer("127.0.0.1",9000, SerializerCode.KRYO.getCode(), RegistryCode.GroupImpl.getCode(),
-                "192.168.1.205:8848",LoadBalancerCode.RANDOMLOADBALANCER.getCode());
+                "192.168.137.1:8848",LoadBalancerCode.RANDOMLOADBALANCER.getCode());
         //手动注册服务
         //server.publishService(helloService,HelloService.class,"group1");
         server.start();

@@ -5,15 +5,17 @@ import entity.Request;
 import entity.RpcRequest;
 import entity.RpcResponse;
 import io.netty.channel.*;
+import org.apache.log4j.Logger;
 import registry.ServiceRegistry;
 import servers.handlers.RequestHandler;
+import servers.nettyServer.NettyServer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
-
+    private static Logger logger = Logger.getLogger(NettyServerHandler.class.getClass());
     private static RequestHandler requestHandler;//请求处理器
     private static ServiceRegistry serviceRegistry;//本地服务注册中心，记录服务接口和对应的实现了类
     private static List<Channel> channels = new ArrayList<>();
@@ -31,17 +33,18 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
         try{
             //if 接收到心跳请求
             if(request instanceof HeartbeatRequest){
-                System.out.println(channelHandlerContext.channel().remoteAddress()+" heart beat!!");
+                logger.info(channelHandlerContext.channel().remoteAddress()+" heart beat!!");
                 return;
             }else if(request instanceof RpcRequest) {
                 Object service = serviceRegistry.getService((RpcRequest) request);//通过本地注册中心获得对应实现对象
                 Object result = requestHandler.handler((RpcRequest) request, service);//处理请求
+                TimeUnit.SECONDS.sleep(3);//等待3秒，模拟服务端任务
                 if (channelHandlerContext.channel().isActive() && channelHandlerContext.channel().isWritable()) {
                     //将结果对象response写入通道
                     ChannelFuture future = channelHandlerContext.writeAndFlush(RpcResponse.success(result, ((RpcRequest) request).getRequestId()));
                     //System.out.println(future);
                 } else {
-                    System.out.println("通道不可写");
+                    logger.error("通道不可写");
                 }
             }
         }finally {
@@ -58,7 +61,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         channels.add(channel);
-        System.out.println("[Server] : " + channel.remoteAddress().toString().substring(1) + "上线");
+        logger.info("[Server] : " + channel.remoteAddress().toString().substring(1) + "上线");
     }
 
     /**
@@ -71,7 +74,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Request> {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         channels.remove(channel);
-        System.out.println("[Server] : " + channel.remoteAddress().toString().substring(1) + "离线");
+        logger.info("[Server] : " + channel.remoteAddress().toString().substring(1) + "离线");
     }
 
     @Override

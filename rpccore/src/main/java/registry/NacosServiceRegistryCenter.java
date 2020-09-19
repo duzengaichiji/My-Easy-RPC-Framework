@@ -9,6 +9,7 @@ import enumeration.RpcError;
 import exception.RpcException;
 import loadbalancer.LoadBalancer;
 import loadbalancer.RandomLoadBalancer;
+import org.apache.log4j.Logger;
 
 import java.net.InetSocketAddress;
 import java.util.HashSet;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 public class NacosServiceRegistryCenter implements ServiceRegistryCenter {
+    private static Logger logger = Logger.getLogger(NacosServiceRegistryCenter.class.getClass());
     //注册中心的地址
     private final String SERVER_ADDR;
     //NamingService用于查找服务
@@ -36,6 +38,7 @@ public class NacosServiceRegistryCenter implements ServiceRegistryCenter {
         try {
             namingService = NamingFactory.createNamingService(SERVER_ADDR);
         } catch (NacosException e) {
+            logger.error("Nacos服务器连接失败");
             e.printStackTrace();
         }
     }
@@ -44,9 +47,10 @@ public class NacosServiceRegistryCenter implements ServiceRegistryCenter {
     public void register(String serviceName, InetSocketAddress inetSocketAddress) {
         try {
             namingService.registerInstance(serviceName,inetSocketAddress.getHostName(),inetSocketAddress.getPort());
-            System.out.println("向Nacos注册中心注册服务:"+serviceName+"; 服务端口为:"+inetSocketAddress.getPort());
+            logger.info("向Nacos注册中心注册服务:"+serviceName+"; 服务端口为:"+inetSocketAddress.getPort());
             serviceNames.add(serviceName);
         }catch (NacosException e){
+            logger.error("向Nacos注册中心注册服务:"+serviceName+"; 服务端口为:"+inetSocketAddress.getPort()+"失败");
             throw new RpcException(RpcError.REGISTER_SERVICE_FAILED);
         }
     }
@@ -56,13 +60,14 @@ public class NacosServiceRegistryCenter implements ServiceRegistryCenter {
         try {
             List<Instance> instances = namingService.getAllInstances(serviceName);
             if(instances.size()==0) throw new RpcException(RpcError.SERVICE_NOT_FOUND);
-            System.out.println("service:"+serviceName+" has total "+instances.size()+" implements");
+            logger.info("service:"+serviceName+" has total "+instances.size()+" implements");
             //直接返回服务列表中的第一个，在这里可以配置负载均衡
             //用负载均衡算法得到其中一个服务提供者
             Instance instance = loadBalancer.select(instances);//instances.get(0);
             //返回服务提供者的 套接字
             return new InetSocketAddress(instance.getIp(),instance.getPort());
         }catch (NacosException e){
+            logger.error("未找到服务:"+serviceName+" 对应的提供者");
             throw new RpcException(RpcError.SERVICE_NOT_FOUND);
         }
     }

@@ -1,5 +1,7 @@
 package annotation;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class ReflectUtil {
+    private static Logger logger = Logger.getLogger(ReflectUtil.class.getClass());
     public static String getStackTrace(){
         //获取程序启动的调用栈，返回最后一个即是启动类
         StackTraceElement[] stackTraceElements = new Throwable().getStackTrace();
@@ -25,6 +28,8 @@ public class ReflectUtil {
 
     //扫描某个包下的所有类型
     public static Set<Class<?>> getClasses(String packageName) {
+
+
         Set<Class<?>> classes = new LinkedHashSet<>();
         boolean recursive = true;
         String packageDirName = packageName.replace('.', '/');
@@ -90,8 +95,7 @@ public class ReflectUtil {
                                                     .forName(packageName + '.'
                                                             + className));
                                         } catch (ClassNotFoundException e) {
-                                            // log
-                                            // .error("添加用户自定义视图类错误 找不到此类的.class文件");
+                                            logger.error("添加用户自定义视图类错误 找不到此类的.class文件");
                                             e.printStackTrace();
                                         }
                                     }
@@ -99,7 +103,7 @@ public class ReflectUtil {
                             }
                         }
                     } catch (IOException e) {
-                        // log.error("在扫描用户定义视图时从jar包获取文件出错");
+                        logger.error("在扫描用户定义视图时从jar包获取文件出错");
                         e.printStackTrace();
                     }
                 }
@@ -117,7 +121,7 @@ public class ReflectUtil {
         File dir = new File(packagePath);
         // 如果文件不存在或者 也不是目录就直接返回
         if (!dir.exists() || !dir.isDirectory()) {
-            // log.warn("用户定义包名 " + packageName + " 下没有任何文件");
+            logger.warn("用户定义包名 " + packageName + " 下没有任何文件");
             return;
         }
         // 如果存在 就获取包下的所有文件 包括目录
@@ -147,7 +151,7 @@ public class ReflectUtil {
                     //加载类得写入全类名
                     classes.add(Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
                 } catch (ClassNotFoundException e) {
-                    // log.error("添加用户自定义视图类错误 找不到此类的.class文件");
+                    logger.error("添加用户自定义视图类错误 找不到此类的.class文件");
                     e.printStackTrace();
                 }
             }

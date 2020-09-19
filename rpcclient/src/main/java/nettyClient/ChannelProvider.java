@@ -13,6 +13,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.HashedWheelTimer;
+import org.apache.log4j.Logger;
 import serializer.CommonSerializer;
 
 import java.net.InetSocketAddress;
@@ -23,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class ChannelProvider {
+    private static Logger logger = Logger.getLogger(ChannelProvider.class.getClass());
     private static EventLoopGroup eventLoopGroup;
     private static Bootstrap bootstrap = initializeBootstrap();
     //<服务名称，对应socket>的本地缓存，避免多次向注册中心请求获取获取
@@ -72,7 +74,7 @@ public class ChannelProvider {
                 channel = connect(bootstrap,inetSocketAddress);
             }
         }catch (ExecutionException e){
-            System.out.println("连接失败");
+            logger.error("连接失败");
             e.printStackTrace();
             return null;
         } catch (InterruptedException e) {
@@ -87,7 +89,7 @@ public class ChannelProvider {
         CompletableFuture<Channel> completableFuture = new CompletableFuture<>();
         bootstrap.connect(inetSocketAddress).addListener((ChannelFutureListener)future->{
             if(future.isSuccess()){
-                System.out.println("客户端连接成功");
+                logger.info("客户端连接成功");
                 completableFuture.complete(future.channel());
             }
         });

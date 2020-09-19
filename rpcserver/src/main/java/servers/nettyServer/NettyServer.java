@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.apache.log4j.Logger;
 import registry.*;
 import servers.server.AbstractRpcServer;
 import serializer.CommonSerializer;
@@ -20,7 +21,7 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 
 public class NettyServer extends AbstractRpcServer {
-
+    private static Logger logger = Logger.getLogger(NettyServer.class.getClass());
     private String host;//远程注册中心的地址
     private int port;//提供服务的端口
     private final CommonSerializer serializer;//序列化器
@@ -72,16 +73,16 @@ public class NettyServer extends AbstractRpcServer {
                             pipeline.addLast(new NettyServerHandler(serviceRegistry));//传入本地注册中心进请求处理器
                         }
                     });
-            System.out.println("...server ready...");
+            logger.info("...server ready...");
             //绑定监听端口,sync是同步阻塞
             ChannelFuture future = serverBootstrap.bind(port).sync();
-            System.out.println("...binding port:"+port+" server start...");
+            logger.info("...binding port:"+port+" server start...");
             //添加服务注销的钩子
             //ShutdownHook.getShutdownHook().addClearAllHook(serviceRegistryCenter);
             //监听通道
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            System.out.println("启动服务器时有错误发生: "+e);
+            logger.error("启动服务器时有错误发生: "+e);
         } finally {
             //关闭线程组
             bossGroup.shutdownGracefully();

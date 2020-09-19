@@ -4,6 +4,7 @@ import entity.RpcRequest;
 import enumeration.RegistryCode;
 import enumeration.RpcError;
 import exception.RpcException;
+import org.apache.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 //一种服务只能对应一种实现
 public class DefaultServiceRegistry implements  ServiceRegistry{
-
+    private static Logger logger = Logger.getLogger(DefaultServiceRegistry.class.getClass());
     private Map<String,Object> serviceMap = new ConcurrentHashMap<>();
     private Set<String> registeredService = new HashSet<>();
 
@@ -39,11 +40,12 @@ public class DefaultServiceRegistry implements  ServiceRegistry{
         registeredService.add(serviceName);
         Class<?>[] interfaces = service.getClass().getInterfaces();
         if(interfaces.length==0){
+            logger.error("向接口:"+interfaces+" 注册服务 "+serviceName+"失败");
             throw new RpcException(RpcError.REGISTER_SERVICE_FAILED);
         }for (Class<?> i:interfaces){
             serviceMap.put(i.getCanonicalName(),service);
         }
-        System.out.println("向接口:"+interfaces+" 注册服务 "+serviceName);
+        logger.info("向接口:"+interfaces+" 注册服务 "+serviceName);
     }
 
     @Override

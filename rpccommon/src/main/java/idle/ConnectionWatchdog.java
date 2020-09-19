@@ -11,6 +11,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.util.Timeout;
 import io.netty.util.Timer;
 import io.netty.util.TimerTask;
+import org.apache.log4j.Logger;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
@@ -27,23 +28,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Sharable
 public abstract class ConnectionWatchdog extends ChannelInboundHandlerAdapter implements TimerTask , ChannelHandlerHolder {
-
+    private static Logger logger = Logger.getLogger(ConnectionWatchdog.class.getClass());
     private final Bootstrap bootstrap;
     private final Timer timer;
     private final InetSocketAddress inetSocketAddress;
-    //private final String post;
-    //private final int port;
     private volatile boolean reconnect = true;
     private int attempts;
-
-//    public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, String post, int port, boolean reconnect) {
-//        this.bootstrap = bootstrap;
-//        this.timer = timer;
-//        this.post = post;
-//        this.port = port;
-//        this.reconnect = reconnect;
-//        attempts = 12;
-//    }
 
     public ConnectionWatchdog(Bootstrap bootstrap, Timer timer, InetSocketAddress inetSocketAddress, boolean reconnect, int attempts) {
         this.bootstrap = bootstrap;
@@ -58,18 +48,16 @@ public abstract class ConnectionWatchdog extends ChannelInboundHandlerAdapter im
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
-        System.out.println("当前链路已经激活了，重连尝试次数重新置为0");
-
+        logger.info("当前链路已经激活了，重连尝试次数重新置为0");
         attempts = 0;
         ctx.fireChannelActive();
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("链接关闭");
+        logger.warn("链接关闭");
         if(reconnect){
-            System.out.println("链接关闭，将进行重连");
+            logger.warn("链接关闭，将进行重连");
             if (attempts < 12) {
                 attempts++;
                 //重连的间隔时间会越来越长
@@ -101,10 +89,10 @@ public abstract class ConnectionWatchdog extends ChannelInboundHandlerAdapter im
                 boolean succeed = f.isSuccess();
                 //如果重连失败，则调用ChannelInactive方法，再次出发重连事件，一直尝试12次，如果失败则不再重连
                 if (!succeed) {
-                    System.out.println("重连失败");
+                    logger.error("重连失败");
                     f.channel().pipeline().fireChannelInactive();
                 }else{
-                    System.out.println("重连成功");
+                    logger.info("重连成功");
                 }
             }
         });
