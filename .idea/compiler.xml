@@ -6,21 +6,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rpcapi" />
-        <module name="rpcclient" />
-        <module name="rpccommon" />
-        <module name="rpccore" />
-        <module name="rpcparent" />
-        <module name="rpcserver" />
+        <module name="rpc-core" />
+        <module name="rpc-examples" />
+        <module name="rpc-spring-support" />
+        <module name="rpc-consumer" />
+        <module name="rpc-common" />
+        <module name="rpc-provider" />
+        <module name="rpc-extension" />
+        <module name="rpc-serialization" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
+      <module name="rpc" target="1.5" />
+      <module name="rpc-common" target="8" />
+      <module name="rpc-consumer" target="8" />
+      <module name="rpc-core" target="8" />
+      <module name="rpc-examples" target="1.5" />
+      <module name="rpc-extension" target="1.5" />
+      <module name="rpc-parent" target="1.5" />
+      <module name="rpc-provider" target="8" />
+      <module name="rpc-registry" target="8" />
+      <module name="rpc-serialization" target="8" />
+      <module name="rpc-spring-support" target="1.5" />
       <module name="rpcapi" target="1.5" />
-      <module name="rpcclient" target="8" />
-      <module name="rpccommon" target="8" />
-      <module name="rpccore" target="8" />
-      <module name="rpcparent" target="1.5" />
-      <module name="rpcserver" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

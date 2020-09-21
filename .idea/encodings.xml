@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/rpc-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rpc-consumer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rpc-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rpc-examples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rpc-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rpc-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rpc-registry" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rpc-serialization" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/rpcapi" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/rpcclient" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/rpccommon" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/rpccore" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/rpcparent" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/rpcserver" charset="UTF-8" />
   </component>
 </project>
