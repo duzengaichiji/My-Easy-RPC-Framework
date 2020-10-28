@@ -1,0 +1,6 @@
+*.apk
+*.ap_
+*.dex
+*.class
+.idea/
+target/
